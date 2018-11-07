@@ -1,0 +1,17 @@
+﻿drop table STAFF;
+drop table DOCTOR;
+drop table GeneralPracticioner; 
+drop table Specialist ;
+drop table Nurse;
+drop table Lab_Technician;
+drop table Facility;
+drop table WeeklySchedule;
+drop table Scheduled_Time; 
+drop table Books;
+drop table Appointment; 
+drop table Treats;
+drop table Patient;
+drop table Prescription;
+drop table Contains;
+drop table Medicine;
+commit;
