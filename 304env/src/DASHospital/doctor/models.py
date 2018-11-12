@@ -15,7 +15,7 @@ class Books(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Books'
+        db_table = 'books'
         unique_together = (('fid', 'appointmentid'),)
 
 
@@ -99,6 +99,7 @@ class Nurse(models.Model):
 
 
 class Patient(models.Model):
+    id = models.AutoField(db_column='id',primary_key=True)
     email = models.CharField(db_column='email', max_length=30, null=False)
     name = models.CharField(db_column='name', max_length=20, null=False)
     healthcard = models.CharField(db_column='healthcard', max_length=20, null=False)
