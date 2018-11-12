@@ -9,8 +9,8 @@ from django.db import models
 
 
 class Books(models.Model):
-    fid = models.ForeignKey('Facility', models.DO_NOTHING, db_column='FID', primary_key=True)  # Field name made lowercase.
-    appointmentid = models.ForeignKey('Appointment', models.DO_NOTHING, db_column='AppointmentID', null=False)  # Field name made lowercase.
+    fid = models.ManyToManyField('Facility', models.DO_NOTHING, db_column='FID', primary_key=True)  # Field name made lowercase.
+    appointmentid = models.ManyToManyField('Appointment', models.DO_NOTHING, db_column='AppointmentID', null=False)  # Field name made lowercase.
 
 
     class Meta:
