@@ -429,7 +429,7 @@ ALTER TABLE public.django_session OWNER TO postgres;
 
 CREATE TABLE public.doctor (
     id integer NOT NULL,
-    availableforemergency bit(1)
+    availableforemergency boolean
 );
 
 
@@ -540,7 +540,7 @@ ALTER SEQUENCE public.patient_id_seq OWNED BY public.patient.id;
 CREATE TABLE public.prescription (
     prescriptionid integer NOT NULL,
     instruction character varying(30),
-    substitutable bit(1)
+    substitutable boolean
 );
 
 
