@@ -68,8 +68,8 @@ class Generalpracticioner(models.Model):
 
 
 class LabTechnician(models.Model):
-    id = models.ForeignKey('Staff', models.DO_NOTHING, db_column='id', primary_key=True)
-    fid = models.ForeignKey('Facility', models.DO_NOTHING, db_column='fid', unique=True)
+    id = models.ForeignKey('Staff', models.CASCADE, db_column='id', primary_key=True)
+    fid = models.ForeignKey('Facility', models.CASCADE, db_column='fid', unique=True)
 
     class Meta:
         managed = False
