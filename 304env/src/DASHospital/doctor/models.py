@@ -10,7 +10,8 @@ from django.db import models
 
 class Books(models.Model):
     fid = models.ForeignKey('Facility', models.DO_NOTHING, db_column='FID', primary_key=True)  # Field name made lowercase.
-    appointmentid = models.ForeignKey('Appointment', models.DO_NOTHING, db_column='AppointmentID')  # Field name made lowercase.
+    appointmentid = models.ForeignKey('Appointment', models.DO_NOTHING, db_column='AppointmentID', null=False)  # Field name made lowercase.
+
 
     class Meta:
         managed = False
@@ -19,87 +20,20 @@ class Books(models.Model):
 
 
 class Appointment(models.Model):
-    appointmentid = models.AutoField(primary_key=True)
-    date = models.DateField()
-    time = models.TimeField()
-    pid = models.ForeignKey('Patient', models.DO_NOTHING, db_column='pid')
-    did = models.ForeignKey('Doctor', models.DO_NOTHING, db_column='did')
+    appointmentid = models.AutoField(db_column='appointmentid', primary_key=True, max_length=8)
+    date = models.DateField(db_column='date')
+    time = models.TimeField(db_column='time')
+    pid = models.ForeignKey('Patient', models.CASCADE, db_column='pid')
+    did = models.ForeignKey('Doctor', models.CASCADE, db_column='did')
 
     class Meta:
         managed = False
         db_table = 'appointment'
-        unique_together = (('appointmentid', 'pid', 'did'),)
-
-
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=80)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group'
-
-
-class AuthGroupPermissions(models.Model):
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
-
-
-class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
-    codename = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
-
-
-class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.BooleanField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
-    date_joined = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user'
-
-
-class AuthUserGroups(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
-
-
-class AuthUserUserPermissions(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
 
 
 class Contains(models.Model):
     prescriptionid = models.ForeignKey('Prescription', models.DO_NOTHING, db_column='prescriptionid', primary_key=True)
-    din = models.ForeignKey('Medicine', models.DO_NOTHING, db_column='din')
+    din = models.ForeignKey('Medicine', models.DO_NOTHING, db_column='din', null=False)
 
     class Meta:
         managed = False
@@ -107,53 +41,9 @@ class Contains(models.Model):
         unique_together = (('prescriptionid', 'din'),)
 
 
-class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
-    object_id = models.TextField(blank=True, null=True)
-    object_repr = models.CharField(max_length=200)
-    action_flag = models.SmallIntegerField()
-    change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'django_admin_log'
-
-
-class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
-
-
-class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_migrations'
-
-
-class DjangoSession(models.Model):
-    session_key = models.CharField(primary_key=True, max_length=40)
-    session_data = models.TextField()
-    expire_date = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_session'
-
-
 class Doctor(models.Model):
-    id = models.ForeignKey('Staff', models.DO_NOTHING, db_column='id', primary_key=True)
-    availableforemergency = models.TextField(blank=True, null=True)  # This field type is a guess.
+    id = models.ForeignKey('Staff', models.CASCADE, db_column='id', primary_key=True)
+    availableforemergency = models.BooleanField(db_column='availableforemergency', null=True)  # This field type is a guess.
 
     class Meta:
         managed = False
@@ -161,8 +51,8 @@ class Doctor(models.Model):
 
 
 class Facility(models.Model):
-    id = models.CharField(primary_key=True, max_length=8)
-    type = models.CharField(max_length=20)
+    id = models.CharField(db_column='id', primary_key=True, max_length=8)
+    type = models.CharField(db_column='type' ,max_length=20, null=False)
 
     class Meta:
         managed = False
@@ -170,7 +60,7 @@ class Facility(models.Model):
 
 
 class Generalpracticioner(models.Model):
-    id = models.ForeignKey(Doctor, models.DO_NOTHING, db_column='id', primary_key=True)
+    id = models.ForeignKey('Doctor', models.CASCADE, db_column='id', primary_key=True)
 
     class Meta:
         managed = False
@@ -179,7 +69,7 @@ class Generalpracticioner(models.Model):
 
 class LabTechnician(models.Model):
     id = models.ForeignKey('Staff', models.DO_NOTHING, db_column='id', primary_key=True)
-    fid = models.ForeignKey(Facility, models.DO_NOTHING, db_column='fid')
+    fid = models.ForeignKey('Facility', models.DO_NOTHING, db_column='fid', unique=True)
 
     class Meta:
         managed = False
@@ -188,10 +78,10 @@ class LabTechnician(models.Model):
 
 
 class Medicine(models.Model):
-    din = models.CharField(primary_key=True, max_length=8)
-    brand = models.CharField(max_length=20)
-    ingredients = models.CharField(max_length=20, blank=True, null=True)
-    sideeffect = models.CharField(max_length=80, blank=True, null=True)
+    din = models.CharField(db_column='din', primary_key=True, max_length=8)
+    brand = models.CharField(db_column='brand', max_length=20, null=False)
+    ingredients = models.CharField(db_coloumn='ingredients', max_length=20, blank=True, null=True)
+    sideeffect = models.CharField(db_column='sideeffects', max_length=80, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -199,8 +89,8 @@ class Medicine(models.Model):
 
 
 class Nurse(models.Model):
-    id = models.ForeignKey('Staff', models.DO_NOTHING, db_column='id', primary_key=True)
-    did = models.ForeignKey(Doctor, models.DO_NOTHING, db_column='did')
+    id = models.ForeignKey('Staff', models.CASCADE, db_column='id', primary_key=True)
+    did = models.ForeignKey('Doctor', models.CASCADE, db_column='did', null=False)
 
     class Meta:
         managed = False
@@ -209,10 +99,10 @@ class Nurse(models.Model):
 
 
 class Patient(models.Model):
-    email = models.CharField(max_length=30)
-    name = models.CharField(max_length=20)
-    healthcard = models.CharField(max_length=20)
-    phone = models.CharField(max_length=13, blank=True, null=True)
+    email = models.CharField(db_column='email', max_length=30, null=False)
+    name = models.CharField(db_column='name', max_length=20, null=False)
+    healthcard = models.CharField(db_column='healthcard', max_length=20, null=False)
+    phone = models.CharField(db_column='phone', max_length=13, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -220,9 +110,9 @@ class Patient(models.Model):
 
 
 class Prescription(models.Model):
-    prescriptionid = models.AutoField(primary_key=True)
-    instruction = models.CharField(max_length=30, blank=True, null=True)
-    substitutable = models.TextField(blank=True, null=True)  # This field type is a guess.
+    prescriptionid = models.AutoField(db_column='prescriptionid', primary_key=True)
+    instruction = models.CharField(db_column='instruction', max_length=30, blank=True, null=True)
+    substitutable = models.BooleanField(db_column='substitutable', blank=True, null=True)  # This field type is a guess.
 
     class Meta:
         managed = False
@@ -230,11 +120,11 @@ class Prescription(models.Model):
 
 
 class ScheduledTime(models.Model):
-    date = models.DateField(primary_key=True)
-    starttime = models.TimeField()
-    endtime = models.TimeField()
-    wid = models.ForeignKey('Weeklyschedule', models.DO_NOTHING, db_column='wid')
-    notes = models.CharField(max_length=60, blank=True, null=True)
+    date = models.DateField(db_column='date', primary_key=True)
+    starttime = models.TimeField(db_column='starttime', null=False)
+    endtime = models.TimeField(db_column='endtime', null=False)
+    wid = models.ForeignKey('Weeklyschedule', models.CASCADE, db_column='wid')
+    notes = models.CharField(db_column='notes', max_length=60, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -243,7 +133,7 @@ class ScheduledTime(models.Model):
 
 
 class Specialist(models.Model):
-    id = models.ForeignKey(Doctor, models.DO_NOTHING, db_column='id', primary_key=True)
+    id = models.ForeignKey('Doctor', models.CASCADE, db_column='id', primary_key=True)
     specialization = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
@@ -252,10 +142,11 @@ class Specialist(models.Model):
 
 
 class Staff(models.Model):
-    email = models.CharField(max_length=30)
-    name = models.CharField(max_length=20)
-    license = models.CharField(max_length=8)
-    phone = models.CharField(max_length=13, blank=True, null=True)
+    id = models.AutoField(db_column='id', primary_key=True)
+    email = models.CharField(db_column='email', max_length=30, null=False)
+    name = models.CharField(db_column='name', max_length=20, null=False)
+    license = models.CharField(db_column='license', max_length=8, null=False)
+    phone = models.CharField(db_column='phone', max_length=13, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -263,9 +154,9 @@ class Staff(models.Model):
 
 
 class Treats(models.Model):
-    did = models.ForeignKey(Doctor, models.DO_NOTHING, db_column='did', primary_key=True)
-    pid = models.ForeignKey(Patient, models.DO_NOTHING, db_column='pid')
-    prescriptionid = models.ForeignKey(Prescription, models.DO_NOTHING, db_column='prescriptionid')
+    did = models.ForeignKey('Doctor', models.DO_NOTHING, db_column='did', primary_key=True)
+    pid = models.ForeignKey('Patient', models.DO_NOTHING, db_column='pid', null=False)
+    prescriptionid = models.ForeignKey('Prescription', models.DO_NOTHING, db_column='prescriptionid', null=False)
 
     class Meta:
         managed = False
@@ -274,8 +165,8 @@ class Treats(models.Model):
 
 
 class Weeklyschedule(models.Model):
-    id = models.CharField(primary_key=True, max_length=8)
-    sid = models.ForeignKey(Staff, models.DO_NOTHING, db_column='sid', unique=True)
+    id = models.CharField(db_column='id', primary_key=True, max_length=8)
+    sid = models.ForeignKey('Staff', models.CASCADE, db_column='sid', unique=True)
 
     class Meta:
         managed = False
