@@ -80,7 +80,7 @@ class LabTechnician(models.Model):
 class Medicine(models.Model):
     din = models.CharField(db_column='din', primary_key=True, max_length=8)
     brand = models.CharField(db_column='brand', max_length=20, null=False)
-    ingredients = models.CharField(db_coloumn='ingredients', max_length=20, blank=True, null=True)
+    ingredients = models.CharField(db_column='ingredients', max_length=20, blank=True, null=True)
     sideeffect = models.CharField(db_column='sideeffects', max_length=80, blank=True, null=True)
 
     class Meta:
