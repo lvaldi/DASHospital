@@ -53,9 +53,11 @@
         {% for i in scheduleslist %}
           <p>  {{i.date}} </p>
           <p> {{i.starttime}} ~ {{i.endtime}} </p>
-          <p> Note:  {{i.notes}} </p>
+          <p> Notes:  {{i.notes}} </p>
+        {% empty %}
+          <p> You don't have any schedule this week! </p>        
         {% endfor %}
-
+        <br><br>
         <p>You are currently work with: {{doctor.name}}</p>
       </div>
 
