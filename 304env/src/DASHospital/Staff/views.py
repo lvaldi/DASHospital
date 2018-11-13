@@ -12,7 +12,7 @@ def nurse_detail_view(request):
 	scheduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
 
 	print(nurse)
-	print(nurseStaff)
+	print(nurseStaff.name)
 
 	context = {
 		'nurse': nurseStaff,
