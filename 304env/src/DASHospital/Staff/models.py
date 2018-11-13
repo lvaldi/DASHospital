@@ -137,5 +137,5 @@ class Books(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'books'
+        db_table = 'Books'
         unique_together = (('fid', 'appointmentid'),)
