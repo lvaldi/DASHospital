@@ -37,12 +37,15 @@
     <div class="row">
       <div class="col-lg-10 mx-auto">
         <h1 class="text-uppercase">
-          {{nurse.name}}Hey
+         {{nurse.name}}
         </h1>
-        <p>ID {{nurse.id}}</p>
-        <p>Email {{nurse.email}}</p>
-        <p>License {{nurse.license}}</p>
-        <p>Phone {{nurse.phone}}</p>
+        <p>ID: {{nurse.id}}</p>
+        <p>Email: {{nurse.email}}</p>
+        <p>License: {{nurse.license}}</p>
+        <p>Phone: {{nurse.phone}}</p>
+       <br>
+       <br>
+       <br>
         <p>Your schedule for this week is</p>
         <hr>
       </div>
@@ -52,7 +55,10 @@
           <p> {{i.starttime}} ~ {{i.endtime}} </p>
           <p> Note:  {{i.notes}} </p>
         {% endfor %}
+
+        <p>You are currently work with: {{doctor.name}}</p>
       </div>
+
     </div>
   </div>
 </header>

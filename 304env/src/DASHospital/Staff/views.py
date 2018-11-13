@@ -6,17 +6,23 @@ from WeeklySchedule.models import *
 
 # Create your views here.
 def nurse_detail_view(request):
-	nurse = Nurse.objects.get(id=1020)
-	nurseStaff = Staff.objects.get(id=nurse.id.id)
-	schedule = Weeklyschedule.objects.get(sid=nurse.id.id)
+	# userid = request.user.id
+	# nurse = Nurse.objects.get(id=userid)
+	nurse = Nurse.objects.get(id=1030)
+	nurseStaff = nurse.id
+	schedule = Weeklyschedule.objects.get(sid=nurseStaff.id)
 	scheduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
+	doctor = nurse.did
+	doctorStaff = doctor.id
+	# dschedule = Weeklyschedule.objects.get(sid=doctorStaff.id)
+	# doctorschedulelist = ScheduledTime.objects.filter(wid=dschedule.id)
 
-	print(nurse)
-	print(nurseStaff.name)
 
 	context = {
 		'nurse': nurseStaff,
-		'scheduleslist': scheduletimeset
+		'scheduleslist': scheduletimeset,
+		'doctor': doctorStaff
+		
 	}
 	
 	return render(request,"Nurse/detail.html",context)
