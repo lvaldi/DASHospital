@@ -11,6 +11,8 @@ def nurse_detail_view(request):
 	schedule = Weeklyschedule.objects.get(sid=nurse.id.id)
 	scheduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
 
+	print(nurse)
+	print(nurseStaff)
 
 	context = {
 		'nurse': nurseStaff,
