@@ -54,16 +54,17 @@ def specialist_detail_view(request):
 	avalibleforemergency = specialist.availableforemergency
 	schedule = Weeklyschedule.objects.get(sid=specialistStaff.id)
 	schduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
-	appids = Appointment.objects.filter(did = specialistStaff.id)
+	appointmentlists= Appointment.objects.filter(did = specialistStaff.id)
 	nurseids = Nurse.objects.filter(did = specialistStaff.id).values_list('id', flat = True)
 	nurseList = Staff.objects.filter(id__in=nurseids)
-	prescriptions = Treats.objects.filter(did = specialistStaff.id)
+	prescriptions = Treats.objects.filter(did = specialistStaff.id).values_list('prescriptionid',flat=True)
+
 
 	context = {
 		'doctor': specialistStaff,
 		'availableforemergency': avalibleforemergency,
 		'type': 'Specialist',
-		'specialization': special,
+		'special': special,
 		'scheduleslist': schduletimeset,
 		'appointmentlists' : appointmentlists,
 		'nurses': nurseList,
@@ -82,8 +83,7 @@ def gp_detail_view(request):
 	appointmentlists = Appointment.objects.filter(did = gpStaff.id)
 	nurseids = Nurse.objects.filter(did = gpStaff.id).values_list('id', flat = True)
 	nurseList = Staff.objects.filter(id__in=nurseids)
-	prescriptions = Treats.objects.filter(did = gpStaff.id)
-
+	prescriptions = Treats.objects.filter(did = gpStaff.id).values_list('prescriptionid',flat=True)
 	context = {
 		'doctor': gpStaff,
 		'availableforemergency': avalibleforemergency,

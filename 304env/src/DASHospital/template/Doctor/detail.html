@@ -55,7 +55,7 @@
         <p>Your schedule for this week is</p>
         <hr>
       </div>
-      <div class="col-lg-8 mx-auto">
+      <div class="container my-auto">
         {% for i in scheduleslist %}
           <p>  {{i.date}} </p>
           <p> {{i.starttime}} ~ {{i.endtime}} </p>
@@ -66,9 +66,11 @@
         <br>
         <br>
         <br>
+      </div>
+        <div class="container my-auto">
         <p>Your current appointments are: </p>
 
-        <p>{{doctor.id}} appointments</p>
+        <p>appointments</p>
              <br>
           {% for i in appointmentlists %}
           <p> {{i.appointmentid}}</p>
@@ -77,12 +79,13 @@
           <br>
         {% empty %}
           <p> No Appointments </p>
+
         {% endfor %}
-        <br>
-        <br>
+         </div>
+      <div class="col-lg-8 mx-auto">
         <br>
         <p>Your nurses are: </p>
-        <p>{{doctor.id}} nurses</p>
+        <p>nurses</p>
         <br>
           {% for i in nurses %}
           <p> {{i.id}}</p>
@@ -95,10 +98,9 @@
         <br>
         <br>
         <p>Your prescriptions are: </p>
-        <p>{{doctor.id}} nurses</p>
         <br>
-          {% for i in prescriptionsgiven %}
-          <p> {{i.id}}</p>
+        {% for i in prescriptionsgiven %}
+          <p>Prescription number: {{i}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}

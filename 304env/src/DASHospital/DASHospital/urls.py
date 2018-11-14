@@ -36,8 +36,7 @@ urlpatterns = [
     # path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create')
 
     path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create'),
-      path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create'),
-    path('schedule/<int:wid>/update/', ScheduledTime_update_view.as_view(), name = 'schedule-update')
+    path('schedule/<int:wid>/update/', ScheduledTime_update_view.as_view(), name = 'schedule-update'),
     path('Specialist/', specialist_detail_view),
     path('GP/', gp_detail_view)
 
