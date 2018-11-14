@@ -19,10 +19,11 @@ from pages.views import sign_in_view, create_user_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view
 from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view
 
-
 urlpatterns = [
     path('', sign_in_view, name='home'),
-    path('createUser/', create_user_view),
+    path('createPatient/', create_patient),
+    path('main/', profile),
+    path('information/', account_information),
     path('Nurse/', nurse_detail_view),
     path('admin/', admin.site.urls),
     path('LabTechnician/', lab_technician_detail_view),
