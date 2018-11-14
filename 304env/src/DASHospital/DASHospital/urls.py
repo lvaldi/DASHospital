@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from pages.views import sign_in_view, create_user_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view
-from WeeklySchedule.views import Weeklyschedule_create_view
+from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view
+
 
 urlpatterns = [
     path('', sign_in_view, name='home'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('Nurse/', nurse_detail_view),
     path('admin/', admin.site.urls),
     path('LabTechnician/', lab_technician_detail_view),
-    path('weeklyschedule_create/', Weeklyschedule_create_view)
+    path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create')
+
 ]
