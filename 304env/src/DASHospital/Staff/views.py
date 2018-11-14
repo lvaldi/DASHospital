@@ -50,15 +50,14 @@ def specialist_detail_view(request):
 	#specialist = Specialist.objects.get(id=userid)
 	specialist = Doctor.objects.get(id=1013)
 	specialistStaff = specialist.id
-	special = Specialist.objects.filter(id= specialistStaff.id)
+	special = Specialist.objects.get(id= specialistStaff.id)
 	avalibleforemergency = specialist.availableforemergency
 	schedule = Weeklyschedule.objects.get(sid=specialistStaff.id)
 	schduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
-	appids = Appointment.objects.filter(did = specialistStaff.id).values_list('appointmentid', flat = True)
-	appointmentlists = Appointment.objects.filter(appointmentid__in =appids)
+	appids = Appointment.objects.filter(did = specialistStaff.id)
 	nurseids = Nurse.objects.filter(did = specialistStaff.id).values_list('id', flat = True)
-	nurseList = Nurse.objects.filter(id__in=nurseids)
-	prescriptions = Treats.objects.filter(did = specialistStaff.id).values_list('prescriptionid', flat = True)
+	nurseList = Staff.objects.filter(id__in=nurseids)
+	prescriptions = Treats.objects.filter(did = specialistStaff.id)
 
 	context = {
 		'doctor': specialistStaff,
@@ -80,11 +79,10 @@ def gp_detail_view(request):
 	avalibleforemergency = gp.availableforemergency
 	schedule = Weeklyschedule.objects.get(sid=gpStaff.id)
 	schduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
-	appids = Appointment.objects.filter(did = gpStaff.id).values_list('appointmentid', flat = True)
-	appointmentlists = Appointment.objects.filter(appointmentid__in =appids)
+	appointmentlists = Appointment.objects.filter(did = gpStaff.id)
 	nurseids = Nurse.objects.filter(did = gpStaff.id).values_list('id', flat = True)
-	nurseList = Nurse.objects.filter(id__in=nurseids)
-	prescriptions = Treats.objects.filter(did = gpStaff.id).values_list('prescriptionid', flat = True)
+	nurseList = Staff.objects.filter(id__in=nurseids)
+	prescriptions = Treats.objects.filter(did = gpStaff.id)
 
 	context = {
 		'doctor': gpStaff,
