@@ -45,3 +45,54 @@ def lab_technician_detail_view(request):
 		'appointmentlists': appointmentlists
 	}
 	return render(request,"LabTechnician/detail.html",context)
+def specialist_detail_view(request):
+	userid = request.user.id
+	#specialist = Specialist.objects.get(id=userid)
+	specialist = Doctor.objects.get(id=1013)
+	specialistStaff = specialist.id
+	special = Specialist.objects.filter(id= specialistStaff.id)
+	avalibleforemergency = specialist.availableforemergency
+	schedule = Weeklyschedule.objects.get(sid=specialistStaff.id)
+	schduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
+	appids = Appointment.objects.filter(did = specialistStaff.id).values_list('appointmentid', flat = True)
+	appointmentlists = Appointment.objects.filter(appointmentid__in =appids)
+	nurseids = Nurse.objects.filter(did = specialistStaff.id).values_list('id', flat = True)
+	nurseList = Nurse.objects.filter(id__in=nurseids)
+	prescriptions = Treats.objects.filter(did = specialistStaff.id).values_list('prescriptionid', flat = True)
+
+	context = {
+		'doctor': specialistStaff,
+		'availableforemergency': avalibleforemergency,
+		'type': 'Specialist',
+		'specialization': special,
+		'scheduleslist': schduletimeset,
+		'appointmentlists' : appointmentlists,
+		'nurses': nurseList,
+		'prescriptionsgiven': prescriptions
+	}
+	return render(request, "Doctor/detail.html", context)
+
+def gp_detail_view(request):
+	userid = request.user.id
+	#gp = Doctor.objects.get(id=userid)
+	gp = Doctor.objects.get(id=1008)
+	gpStaff = gp.id
+	avalibleforemergency = gp.availableforemergency
+	schedule = Weeklyschedule.objects.get(sid=gpStaff.id)
+	schduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
+	appids = Appointment.objects.filter(did = gpStaff.id).values_list('appointmentid', flat = True)
+	appointmentlists = Appointment.objects.filter(appointmentid__in =appids)
+	nurseids = Nurse.objects.filter(did = gpStaff.id).values_list('id', flat = True)
+	nurseList = Nurse.objects.filter(id__in=nurseids)
+	prescriptions = Treats.objects.filter(did = gpStaff.id).values_list('prescriptionid', flat = True)
+
+	context = {
+		'doctor': gpStaff,
+		'availableforemergency': avalibleforemergency,
+		'type': 'General Practitioner',
+		'scheduleslist': schduletimeset,
+		'appointmentlists' : appointmentlists,
+		'nurses': nurseList,
+		'prescriptionsgiven': prescriptions
+	}
+	return render(request, "Doctor/detail.html", context)
