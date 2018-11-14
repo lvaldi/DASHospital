@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from pages.views import sign_in_view, create_user_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view
+from Patient.views import create_patient
 
 urlpatterns = [
     path('', sign_in_view, name='home'),
-    path('createUser/', create_user_view),
+    path('createPatient/', create_patient),
     path('Nurse/', nurse_detail_view),
     path('admin/', admin.site.urls),
-    path('LabTechnician/', lab_technician_detail_view)
+    path('LabTechnician/', lab_technician_detail_view),
 ]
