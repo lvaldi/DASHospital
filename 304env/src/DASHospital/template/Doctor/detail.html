@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% endblock nav %}
+
+
+{% block body %}
+
+<header class="masthead text-center d-flex">
+  <div class="container my-auto">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h1 class="text-uppercase">
+         {{doctor.name}}
+        </h1>
+        <p>ID: {{doctor.id}}</p>
+        <p>Email: {{doctor.email}}</p>
+        <p>License: {{doctor.license}}</p>
+        <p>Phone: {{doctor.phone}}</p>
+        <p>Available For Emergency: {{availableforemergency}}</p>
+        <p>Type: {{type}} </p>
+
+          <p>Specialization: {{special.specialization}}</p>
+
+       <br>
+       <br>
+       <br>
+        <p>Your schedule for this week is</p>
+        <hr>
+      </div>
+      <div class="col-lg-8 mx-auto">
+        {% for i in scheduleslist %}
+          <p>  {{i.date}} </p>
+          <p> {{i.starttime}} ~ {{i.endtime}} </p>
+          <p> Notes:  {{i.notes}} </p>
+        {% empty %}
+          <p> You don't have any schedule this week! </p>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <p>Your current appointments are: </p>
+
+        <p>{{doctor.id}} appointments</p>
+             <br>
+          {% for i in appointmentlists %}
+          <p> {{i.appointmentid}}</p>
+          <p> {{i.date}} </p>
+          <p> {{i.time}} </p>
+          <br>
+        {% empty %}
+          <p> No Appointments </p>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <p>Your nurses are: </p>
+        <p>{{doctor.id}} nurses</p>
+        <br>
+          {% for i in nurses %}
+          <p> {{i.id}}</p>
+          <p> {{i.name}} </p>
+          <p> {{i.phone}} </p>
+        {% empty %}
+          <p> No Nurses </p>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <p>Your prescriptions are: </p>
+        <p>{{doctor.id}} nurses</p>
+        <br>
+          {% for i in prescriptionsgiven %}
+          <p> {{i.id}}</p>
+        {% empty %}
+          <p> No Prescriptions </p>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<h1></h1>
+{% endblock %}
