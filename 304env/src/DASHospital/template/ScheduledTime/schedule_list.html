@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% endblock nav %}
+
+
+{% block body %}
+
+<header class="masthead text-center d-flex">
+  <div class="container my-auto">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h1 class="text-uppercase">
+         Schedule List <br><br>
+         Name: {{staff.name}}<br>
+         Schedule ID: {{wid}}
+        </h1>
+        
+        <p><a href = '/schedule/{{wid}}/create/'>Create</a></p>
+   
+      </div>
+      <div class="container my-auto">
+   
+      </div>
+        <div class="container my-auto">
+        <p>To change the schedule, please click the change button</p>
+
+             <br>
+          {% for i in object_list %}
+          <p><a href = '{{i.get_absolute_url}}/update/'>Change</a><a href = '{{i.get_absolute_url}}/delete/'>      &nbsp;&nbsp;Delete</a></p>
+          <p> Date: {{i.date}} </p>
+          <p> Start: {{i.starttime}} </p>
+          <p> End: {{i.endtime}} </p>
+          <p> Notes: {{i.notes}} </p>
+          <br>
+        {% empty %}
+          <p> No Schedule, to make schedule click create</p>
+
+        {% endfor %}
+         </div>
+     
+
+    </div>
+  </div>
+</header>
+
+<h1></h1>
+{% endblock %}

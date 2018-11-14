@@ -18,4 +18,15 @@ class ScheduledTimeForm(forms.Form):
 	starttime = forms.TimeField()
 	endtime = forms.TimeField()
 	notes = forms.CharField(required=False)
+
+class ScheduledTimeModelForm(forms.ModelForm):
+	class Meta:
+		model = ScheduledTime
+		fields = [
+		'wid',
+		'date',
+		'starttime',
+		'endtime',
+		'notes'
+		]
 	
