@@ -12,9 +12,14 @@ class nurse_detail_view(View):
 	# nurse = Nurse.objects.get(id=userid)
 	template_name = "Nurse/detail.html"
 	def get(self, request, id, *args, **kwargs):
-		nurse = Nurse.objects.raw('SELECT * FROM "nurse" WHERE ID = %s', [id])[0]
+		# nurse = Nurse.objects.raw('SELECT * FROM "nurse" WHERE ID = %s', [id])[0]
 		# nurse = Nurse.objects.get(id=1030)
-		nurseStaff = nurse.id
+		# nurseStaff = nurse.id
+		# nurseset = Nurse.objects.filter(id=1030)
+		# print(nurseset.query)
+		nurse = connection.cursor().execute('SELECT "nurse"."id", "nurse"."did" FROM "nurse" WHERE "nurse"."id" = 1030')
+		nurseStaff = connection.cursor().execute('SELECT * FROM "staff" WHERE "staff"."id" = 1030')
+		# connection.cursor().execute('SELECT * FROM "nurse" WHERE "nurse"."id" = 1030')
 		schedule = Weeklyschedule.objects.get(sid=nurseStaff.id)
 		scheduletimeset = ScheduledTime.objects.filter(wid = schedule.id)
 		doctor = nurse.did
