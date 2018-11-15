@@ -63,6 +63,7 @@
         {% empty %}
           <p> You don't have any schedule this week! </p>
         {% endfor %}
+          <p><a href = "/schedule/{{doctor.id}}0001/list" >Manage Schedule</a></p>
         <br>
         <br>
         <br>
@@ -91,6 +92,7 @@
           <p> {{i.id}}</p>
           <p> {{i.name}} </p>
           <p> {{i.phone}} </p>
+           <p><a href = "/schedule/{{i.id}}0001/list" >Manage Schedule</a></p>
         {% empty %}
           <p> No Nurses </p>
         {% endfor %}

@@ -15,8 +15,8 @@ class Staff(models.Model):
         db_table = 'staff'
 
 class Contains(models.Model):
-    prescriptionid = models.ForeignKey('Prescription', models.DO_NOTHING, db_column='prescriptionid', primary_key=True)
-    din = models.ForeignKey('Medicine', models.DO_NOTHING, db_column='din', null=False)
+    prescriptionid = models.ForeignKey('Prescription', models.CASCADE, db_column='prescriptionid', primary_key=True)
+    din = models.ForeignKey('Medicine', models.CASCADE, db_column='din', null=False)
 
     class Meta:
         managed = False
@@ -52,12 +52,12 @@ class Generalpracticioner(models.Model):
 
 class LabTechnician(models.Model):
     id = models.ForeignKey('Staff', models.CASCADE, db_column='id', primary_key=True)
-    fid = models.ForeignKey('Facility', models.CASCADE, db_column='fid', unique=True)
+    fid = models.ForeignKey('Facility', models.CASCADE, db_column='fid')
 
     class Meta:
         managed = False
         db_table = 'lab_technician'
-        unique_together = (('id', 'fid'),)
+        # unique_together = (('id', 'fid'),)
 
 
 class Medicine(models.Model):
@@ -109,9 +109,9 @@ class Specialist(models.Model):
 
 
 class Treats(models.Model):
-    did = models.ForeignKey('Doctor', models.DO_NOTHING, db_column='did', primary_key=True)
-    pid = models.ForeignKey(Patient, models.DO_NOTHING, db_column='pid', null=False)
-    prescriptionid = models.ForeignKey('Prescription', models.DO_NOTHING, db_column='prescriptionid', null=False)
+    did = models.ForeignKey('Doctor', models.CASCADE, db_column='did', primary_key=True)
+    pid = models.ForeignKey(Patient, models.CASCADE, db_column='pid', null=False)
+    prescriptionid = models.ForeignKey('Prescription', models.CASCADE, db_column='prescriptionid', null=False)
 
     class Meta:
         managed = False
@@ -131,8 +131,8 @@ class Appointment(models.Model):
         db_table = 'appointment'
 
 class Books(models.Model):
-    fid = models.ForeignKey('Facility', models.DO_NOTHING, db_column='FID', primary_key=True)  # Field name made lowercase.
-    appointmentid = models.ForeignKey('Appointment', models.DO_NOTHING, db_column='AppointmentID', null=False)  # Field name made lowercase.
+    fid = models.ForeignKey('Facility', models.CASCADE, db_column='FID', primary_key=True)  # Field name made lowercase.
+    appointmentid = models.ForeignKey('Appointment', models.CASCADE, db_column='AppointmentID', null=False)  # Field name made lowercase.
 
 
     class Meta:
