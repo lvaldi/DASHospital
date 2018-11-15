@@ -42,8 +42,8 @@ urlpatterns = [
     path('schedule/<str:wid>/<str:date>/<str:starttime>/<str:endtime>/update/',ScheduledTime_update_view.as_view()),
     path('schedule/<str:wid>/<str:date>/<str:starttime>/<str:endtime>/delete/',ScheduledTime_delete_view.as_view()),
 
-    path('Patient/create', patient_create_view.as_view()),
-    path('Patient/<int:id>/datail', patient_create_view.as_view())
+    path('Patient/create/', patient_create_view.as_view(),name = 'patient-create'),
+    path('Patient/<int:id>/datail', patient_detail_view.as_view())
     # path('schedule/list',ScheduleListView.as_view()),
    
 

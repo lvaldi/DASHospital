@@ -22,5 +22,40 @@
 
 {% endblock nav %}
 
+
 {% block body %}
+
+<header class="masthead text-center d-flex">
+  <div class="container my-auto">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h1>
+         {{patient.name}}
+        </h1>
+        <p>ID: {{patient.id}}</p>
+        <p>Email: {{patient.email}}</p>
+        <p>License: {{patient.healthcard}}</p>
+        <p>Phone: {{patient.phone}}</p>
+       <br>
+       <br>
+       <br>
+        <p>Your Appointment for this week is</p>
+        <hr>
+      </div>
+      <div class="col-lg-8 mx-auto">
+        {% for i in appointments %}
+          <p> {{i.date}} </p>
+          <p> {{i.time}} </p>
+          <p> DOCTOR: {{i.name}} </p>
+        {% empty %}
+          <p> You don't have any Appointment Yet</p>        
+        {% endfor %}
+        <br><br>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<h1></h1>
 {% endblock body %}

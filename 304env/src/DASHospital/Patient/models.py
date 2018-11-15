@@ -14,8 +14,8 @@ class Patient(models.Model):
         managed = False
         db_table = 'patient'
 
-    def get_absolute_url(self):
-        strn = ""
-        strn = strn + '/Patient/' + str(self.id)
-        print (strn)
-        return strn
+    # def get_absolute_url(self):
+    #     strn = ""
+    #     strn = strn + '/Patient/' + str(self.id)
+    #     print (strn)
+    #     return strn

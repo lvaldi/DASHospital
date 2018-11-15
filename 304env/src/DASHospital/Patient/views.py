@@ -10,31 +10,36 @@ class patient_detail_view(View):
 	template_name = "Patient/detail.html"
 	def get(self, request, id, *args, **kwargs):
 		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
-		appointment = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "patient"."id" = "appointment"."pid" AND "patient"."id" = %s', [id])
-		doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
+		appointments = Appointment.objects.raw('SELECT * FROM "appointment", "doctor", "staff" WHERE  "appointment"."did" = "doctor"."id" AND "doctor"."id" = "staff"."id" AND "appointment"."pid" = %s ', [id])
+		# doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
 		context = {
 			'patient': patient,
-			'appointment': appointment,
-			'doctor': doctorStaff
+			'appointments': appointments
 			}
-	
 		return render(request,self.template_name,context)
 
+
+class patient_update_view(View):
+	template_name = "Patient/update.html"
+	
 class patient_create_view(View):
 	template_name = "Patient/create.html"
 	def get(self, request, *args, **kwargs):
-		form = PatientModelForm()
+		form = PatientRegisterForm()
 		context = {"form": form}
-		return render(request,self.template_name, context)
-	def post(self,request,id,*args,**kwargs):
-		form = PatientModelForm(request.POST)
+		return render(request, self.template_name, context)
+
+	def post(self, request, *args,**kwargs):
+		print(request.POST)
+		form = PatientRegisterForm(request.POST)
+		print(form.is_valid())
 		if form.is_valid():
 			data = form.cleaned_data
 			name = data.get('name')
 			email = data.get('email')
 			phone = data.get('phone')
 			healthcard = data.get('healthcard')
-			connection.cursor().execute('INSERT into "patient" values(%s,%s,%s,%s)',(email,name,healthcard,phone))
+			connection.cursor().execute('INSERT into "patient"("email","name","healthcard","phone") values(%s,%s,%s,%s)',(email,name,healthcard,phone))
 		context = {"form": form}
 		return render(request,self.template_name,context)
 
