@@ -14,7 +14,8 @@ class Weeklyschedule(models.Model):
         db_table = 'weeklyschedule'
 
 class ScheduledTime(models.Model):
-    date = models.DateField(db_column='date', primary_key = True)
+    # fakeKey = models.AutoField(db_column = 'fakekey', primary_key=True)
+    date = models.DateField(db_column='date',null=False, primary_key=True)
     starttime = models.TimeField(db_column='starttime', null=False)
     endtime = models.TimeField(db_column='endtime', null=False)
     wid = models.ForeignKey('Weeklyschedule', models.CASCADE, db_column='wid')
