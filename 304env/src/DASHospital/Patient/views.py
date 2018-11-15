@@ -5,6 +5,7 @@ from django.views import View
 from Staff.models import *
 from django.db import connection
 from .forms import *
+import collections
 
 class patient_detail_view(View):
 	template_name = "Patient/detail.html"
@@ -21,7 +22,7 @@ class patient_detail_view(View):
 
 class patient_update_view(View):
 	template_name = "Patient/update.html"
-	
+
 class patient_create_view(View):
 	template_name = "Patient/create.html"
 	def get(self, request, *args, **kwargs):
@@ -43,28 +44,24 @@ class patient_create_view(View):
 		context = {"form": form}
 		return render(request,self.template_name,context)
 
-'''
-# Create your views here.
-def create_patient(request):
-	return render(request,"Patient/register.html", {})
+class doctor_availble_for_emergency_view(View):
+	template_name = "Doctor/availableforemergency.html"
+	def get(self, request, *args, **kwargs):
+		context = {}
+		c = connection.cursor()
+		c.execute('CREATE OR REPLACE VIEW AllAVAILABLE AS SELECT "doctor"."id", "staff"."name", "doctor"."availableforemergency", "staff"."email", "staff"."phone" FROM "doctor", "staff" WHERE "doctor"."id" = "staff"."id" AND "doctor"."availableforemergency" = TRUE')
+		c.execute('SELECT "id", "name" FROM AllAVAILABLE')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'id, name')
+		context['list'] = map(ComplaintRecord._make, c.fetchall())
+		return render(request,self.template_name,context)
 
-def profile(request):
-    return render(request,"Patient/profile.html", {})
-
-
-def account_information(request):
-    # patient_id = request.user.id
-    # patient = Patient.objects.get(id=userid)
-    patient = Patient.objects.get(id=100000)
-    patient_id = patient.id
-    patient_email = patient.email
-    patient_name = patient.name
-    patient_healthcard = patient.healthcard
-    patient_phone = patient.phone
-
-    context = {
-        'patient': patient
-    }
-
-    return render(request,"Patient/information.html", context)
-'''
+class doctor_availble_for_emergency_view_phone(View):
+	template_name = "Doctor/availableforemergencyphone.html"
+	def get(self, request, *args, **kwargs):
+		context = {}
+		c = connection.cursor()
+		c.execute('CREATE OR REPLACE VIEW AllAVAILABLE AS SELECT "doctor"."id", "staff"."name", "doctor"."availableforemergency", "staff"."email", "staff"."phone" FROM "doctor", "staff" WHERE "doctor"."id" = "staff"."id" AND "doctor"."availableforemergency" = TRUE')
+		c.execute('SELECT "id", "name", "phone" FROM AllAVAILABLE')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'id, name, phone')
+		context['list'] = map(ComplaintRecord._make, c.fetchall())
+		return render(request,self.template_name,context)

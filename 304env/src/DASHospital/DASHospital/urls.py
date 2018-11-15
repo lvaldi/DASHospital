@@ -22,7 +22,7 @@ from Staff.views import nurse_detail_view, lab_technician_detail_view
 from pages.views import sign_in_view, create_user_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view, specialist_detail_view, gp_detail_view
 from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view,ScheduledTime_list_view, ScheduledTime_delete_view
-from Patient.views import patient_detail_view, patient_create_view
+from Patient.views import patient_detail_view, patient_create_view, doctor_availble_for_emergency_view, doctor_availble_for_emergency_view_phone
 
 
 urlpatterns = [
@@ -43,9 +43,8 @@ urlpatterns = [
     path('schedule/<str:wid>/<str:date>/<str:starttime>/<str:endtime>/delete/',ScheduledTime_delete_view.as_view()),
 
     path('Patient/create/', patient_create_view.as_view(),name = 'patient-create'),
-    path('Patient/<int:id>/datail', patient_detail_view.as_view())
-    # path('schedule/list',ScheduleListView.as_view()),
-   
-
+    path('Patient/<int:id>/datail', patient_detail_view.as_view()),
+    path('DOCTOR/emergency', doctor_availble_for_emergency_view.as_view()),
+    path('DOCTOR/emergency/phone', doctor_availble_for_emergency_view_phone.as_view())
 
 ]

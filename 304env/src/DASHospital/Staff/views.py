@@ -86,3 +86,4 @@ class gp_detail_view(View):
 			'prescriptionsgiven': prescriptions
 		}
 		return render(request, self.template_name, context)
+
