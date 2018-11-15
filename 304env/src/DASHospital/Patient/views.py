@@ -1,13 +1,14 @@
 from django.shortcuts import render
 
 from .models import *
-from django.views import views
+from django.views import View
 from Staff.models import *
 from django.db import connection
+from .forms import *
 
 class patient_detail_view(View):
-    template_name = "Patient/detail.html"
-    def get(self, request, id, *args, **kwargs):
+	template_name = "Patient/detail.html"
+	def get(self, request, id, *args, **kwargs):
 		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
 		appointment = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "patient"."id" = "appointment"."pid" AND "patient"."id" = %s', [id])
 		doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
@@ -20,15 +21,13 @@ class patient_detail_view(View):
 		return render(request,self.template_name,context)
 
 class patient_create_view(View):
-    template_name = "Patient/create.html"
-	def get(self, request, id, *args, **kwargs):
-		form = ScheduledTimeForm()
-		context = {"form": form,
-					"id": id}
+	template_name = "Patient/create.html"
+	def get(self, request, *args, **kwargs):
+		form = PatientModelForm()
+		context = {"form": form}
 		return render(request,self.template_name, context)
-
-    def post(self,request,id,*args,**kwargs):
-		form = ScheduledTimeForm(request.POST)
+	def post(self,request,id,*args,**kwargs):
+		form = PatientModelForm(request.POST)
 		if form.is_valid():
 			data = form.cleaned_data
 			name = data.get('name')
@@ -36,8 +35,7 @@ class patient_create_view(View):
 			phone = data.get('phone')
 			healthcard = data.get('healthcard')
 			connection.cursor().execute('INSERT into "patient" values(%s,%s,%s,%s)',(email,name,healthcard,phone))
-		context = {"form": form,
-					"wid": wid}
+		context = {"form": form}
 		return render(request,self.template_name,context)
 
 '''

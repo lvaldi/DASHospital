@@ -1,5 +1,6 @@
 from django.db import models
 from Patient.models import Patient
+from WeeklySchedule import *
 
 # Create your models here.
 
@@ -139,3 +140,4 @@ class Books(models.Model):
         managed = False
         db_table = 'Books'
         unique_together = (('fid', 'appointmentid'),)
+

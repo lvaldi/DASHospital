@@ -22,7 +22,7 @@ from Staff.views import nurse_detail_view, lab_technician_detail_view
 from pages.views import sign_in_view, create_user_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view, specialist_detail_view, gp_detail_view
 from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view,ScheduledTime_list_view, ScheduledTime_delete_view
-from Patient.views import create_patient
+from Patient.views import patient_detail_view, patient_create_view
 
 
 urlpatterns = [
@@ -33,16 +33,19 @@ urlpatterns = [
     path('Nurse/<int:id>/detail', nurse_detail_view.as_view()),
     path('admin/', admin.site.urls),
     path('LabTechnician/<int:id>/detail', lab_technician_detail_view.as_view()),
-
+    path('Specialist/<int:id>/detail', specialist_detail_view.as_view()),
+    path('GP/<int:id>/detail', gp_detail_view.as_view()),
     # path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create')
 
     path('schedule/<str:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create'),
     path('schedule/<str:wid>/list/', ScheduledTime_list_view.as_view(), name = 'schedule-list'),
     path('schedule/<str:wid>/<str:date>/<str:starttime>/<str:endtime>/update/',ScheduledTime_update_view.as_view()),
     path('schedule/<str:wid>/<str:date>/<str:starttime>/<str:endtime>/delete/',ScheduledTime_delete_view.as_view()),
+
+    path('Patient/create', patient_create_view.as_view()),
+    path('Patient/<int:id>/datail', patient_create_view.as_view())
     # path('schedule/list',ScheduleListView.as_view()),
-    path('Specialist/<int:id>/detail', specialist_detail_view.as_view()),
-    path('GP/<int:id>/detail', gp_detail_view.as_view())
+   
 
 
 ]
