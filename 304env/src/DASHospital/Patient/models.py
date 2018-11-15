@@ -1,5 +1,7 @@
 from django.db import models
-#from Staff.models import Doctor, Facility
+from Staff.models import Staff, Facility
+from django.urls import reverse
+from datetime import datetime, time
 
 # Create your models here.
 class Patient(models.Model):
@@ -12,3 +14,9 @@ class Patient(models.Model):
     class Meta:
         managed = False
         db_table = 'patient'
+
+    def get_absolute_url(self):
+        strn = ""
+        strn = strn + '/Patient/' + str(self.id)
+        print (strn)
+        return strn
