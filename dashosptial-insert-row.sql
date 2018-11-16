@@ -296,10 +296,23 @@ INSERT INTO Treats VALUES
     (1008,100001);
 
 INSERT INTO Prescription(INSTRUCTION, Substitutable) VALUES
-    ('Not before Meal',0),
-    (NULL,1),
-    ('Shakes before taking',0),
-    (NULL,1);
+
+    ('Not before Meal','False'),
+    (NULL,'True'),
+    (NULL,'False'),
+    ('Shakes before taking','False'),
+    (NULL,'True'),
+    ('hello','True'),
+    (NULL,'False'),
+    (NULL,'False'),
+    (NULL,'False'),
+    (NULL,'True'),
+    (NULL,'False'),
+    (NULL,'True'),
+    (NULL,'True'),
+    ('Yes','True'),
+    (NULL,'True');
+
 
 INSERT INTO Contains VALUES
     (10000,34649775),
@@ -317,7 +330,30 @@ INSERT INTO Contains VALUES
     (10002,47283530),
     (10003,50589752),
     (10004,51375902),
-    (10003,51483068);
+    (10003,51483068),
+    (10000,27355705),
+    (10001,27355705),
+    (10002,27355705),
+    (10003,27355705),
+    (10004,27355705),
+    (10005,27355705),
+    (10006,27355705),
+    (10007,27355705),
+    (10008,27355705),
+    (10009,27355705),
+    (10010,27355705),
+    (10011,27355705),
+    (10012,27355705),
+    (10013,27355705),
+    (10014,27355705),
+    (10004,21044495),
+    (10006,21044495),
+    (10008,90147511),
+    (10010,91534855),
+    (10011,91962435),
+    (10000,92207285),
+    (10012,93224755);
+
 
 INSERT INTO Medicine VALUES
     (1294739,'Cummerata-Borer','acetaminophen','nisi'),
