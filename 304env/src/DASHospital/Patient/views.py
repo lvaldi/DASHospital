@@ -22,6 +22,33 @@ class patient_detail_view(View):
 
 class patient_update_view(View):
 	template_name = "Patient/update.html"
+	def get_object(self):
+		id = self.kwargs.get("id")
+		obj = Patient.objects.raw('SELECT * FROM "patient" WHERE "id" = %s', [id])[0]
+		return obj
+
+	def get(self, request, id, *args, **kwargs):
+		context = {}
+		obj = self.get_object()
+		form = PatientModelForm(instance=obj)
+		context ['obj'] = obj
+		context ['form'] = form
+		return render(request, self.template_name, context)
+
+	def post(self, request, id, *args, **kwargs):
+		obj = self.get_object()
+		context = {}
+		form = PatientModelForm(request.POST, instance=obj)
+		if form.is_valid():
+			data = form.cleaned_data
+			name = data.get('name')
+			email = data.get('email')
+			phone = data.get('phone')
+			healthcard = data.get('healthcard')
+			connection.cursor().execute('UPDATE "patient" SET "name" = %s , "email" = %s , "healthcard" = %s , "phone" = %s WHERE "id" = %s',(name,email,healthcard,phone,id))
+		context ['obj'] = obj
+		context ['form'] = form
+		return render(request,self.template_name,context)
 
 class patient_create_view(View):
 	template_name = "Patient/create.html"
@@ -31,9 +58,7 @@ class patient_create_view(View):
 		return render(request, self.template_name, context)
 
 	def post(self, request, *args,**kwargs):
-		print(request.POST)
 		form = PatientRegisterForm(request.POST)
-		print(form.is_valid())
 		if form.is_valid():
 			data = form.cleaned_data
 			name = data.get('name')

@@ -4,6 +4,7 @@ from .models import *
 from django.views import View
 from WeeklySchedule.models import *
 from django.db import connection
+import collections
 
 
 # Create your views here.
@@ -86,4 +87,21 @@ class gp_detail_view(View):
 			'prescriptionsgiven': prescriptions
 		}
 		return render(request, self.template_name, context)
+
+class stat_view(View):
+	template_name = "Doctor/stat.html"
+	def get(self, request, *args, **kwargs):
+		c = connection.cursor()
+		context = {}
+		c.execute('SELECT "brand", count(*) as count FROM "contains", "medicine" WHERE "contains"."din" = "medicine"."din" group by "brand" order by count desc')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'brand, count')
+		context['bv'] = map(ComplaintRecord._make, c.fetchall())
+		c.execute('SELECT ingredients, count(*) as count from contains, medicine where contains.din = medicine.din group by ingredients order by count desc')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'ingredients, count')
+		context['iv'] = map(ComplaintRecord._make, c.fetchall())
+		c.execute('SELECT DISTINCT din FROM "contains" as sx WHERE NOT EXISTS ((SELECT p."prescriptionid" FROM "prescription" as p )EXCEPT(SELECT sp."prescriptionid" FROM contains as sp WHERE sp.din = sx.din ) )')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din')
+		context['dv'] = map(ComplaintRecord._make, c.fetchall())
+		return render(request, self.template_name, context)
+
 

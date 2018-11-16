@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block nav %}
 
+<!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
@@ -13,7 +12,16 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/DOCTOR/emergency/">Emergency information</a>
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
         </li>
       </ul>
     </div>
@@ -22,36 +30,24 @@
 
 {% endblock nav %}
 
-
 {% block body %}
 
 <header class="masthead text-center d-flex">
   <div class="container my-auto">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h1>
-         {{patient.name}}
+        <h1 class="text-uppercase">
+         Schedule Update 
         </h1>
-        <p>ID: {{patient.id}}</p>
-        <p>Email: {{patient.email}}</p>
-        <p>Healtcard: {{patient.healthcard}}</p>
-        <p>Phone: {{patient.phone}}</p>
-       <br>
-       <br>
-       <p><a href = "/Patient/{{patient.id}}/update" >Update</a></p>
-       <br>
-        <p>Your Appointment for this week is</p>
+          <form action='.' method = 'POST'> {% csrf_token %}
+            {{ form.as_p }}
+            <input type ='submit' value = 'UPDATE' />
+          </form>
         <hr>
+     
       </div>
       <div class="col-lg-8 mx-auto">
-        {% for i in appointments %}
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
-          <p> DOCTOR: {{i.name}} </p>
-        {% empty %}
-          <p> You don't have any Appointment Yet</p>        
-        {% endfor %}
-        <br><br>
+      
       </div>
 
     </div>
@@ -59,4 +55,4 @@
 </header>
 
 <h1></h1>
-{% endblock body %}
+{% endblock %}
