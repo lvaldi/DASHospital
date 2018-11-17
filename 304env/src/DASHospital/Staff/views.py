@@ -14,10 +14,12 @@ class nurse_detail_view(View):
 		nurseStaff = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id"="nurse"."id" AND "staff"."id" = %s',[id])[0]
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[nurseStaff.did])[0]
+		doctorAppointmentList = Nurse.objects.raw('SELECT * FROM "nurse", "doctor", "appointment" WHERE "nurse"."did" = "doctor"."id" AND "doctor"."id" = "appointment"."did" AND "nurse"."id" = %s', [id])
 		context = {
 			'nurse': nurseStaff,
 			'scheduleslist': scheduletimeset,
-			'doctor': doctorStaff
+			'doctor': doctorStaff,
+			'appointmentlists' : doctorAppointmentList
 			}
 	
 		return render(request,self.template_name,context)
