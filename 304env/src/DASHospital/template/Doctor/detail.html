@@ -11,18 +11,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-        </li>
       </ul>
     </div>
   </div>
@@ -102,7 +90,7 @@
         <p>Your prescriptions are: </p>
         <br>
         {% for i in prescriptionsgiven %}
-          <p>Prescription number: {{i}} </p>
+          <p>Prescription number: {{i.prescriptionid.prescriptionid}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}

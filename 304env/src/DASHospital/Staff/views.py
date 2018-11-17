@@ -76,7 +76,7 @@ class gp_detail_view(View):
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s',[id])
 		nurseList = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id" = "nurse"."id" AND "nurse"."did" = %s',[id])
-		prescriptions = Treats.objects.raw('SELECT * FROM "treats", "doctor" WHERE "treats"."did" = "doctor"."id" AND "doctor"."id" = %s', [id])
+		prescriptions = Treats.objects.raw('SELECT * FROM "prescription", "treats", "doctor" WHERE "prescription"."prescriptionid" = "treats"."prescriptionid" AND "treats"."did" = "doctor"."id" AND "doctor"."id" = %s', [id])
 		context = {
 			'doctor': gpStaff,
 			'availableforemergency': avalibleforemergency,
