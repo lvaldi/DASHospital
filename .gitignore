@@ -100,3 +100,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+304env/src/DASHospital/DASHospital/__pycache__/urls.cpython-37.pyc
+304env/src/DASHospital/DASHospital/__pycache__/urls.cpython-37.pyc
+.DS_Store
+304env/src/DASHospital/.idea/DASHospital.iml

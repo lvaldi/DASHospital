@@ -82,8 +82,7 @@ class doctor_login_view(View):
 class specialist_detail_view(View):
 	template_name = "Doctor/detail.html"
 	def get(self, request, id, *args, **kwargs):
-		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[id])[0]
-		special = Specialist.objects.raw('SELECT * FROM "specialist" WHERE "specialist"."id" = %s', [specialistStaff.id])
+		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor", "specialist" WHERE "staff"."id"="doctor"."id" AND "doctor"."id" = "specialist"."id" AND "staff"."id" = %s',[id])[0]
 		avalibleforemergency = specialistStaff.availableforemergency
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s',[id])
@@ -97,7 +96,6 @@ class specialist_detail_view(View):
 			'doctor': specialistStaff,
 			'availableforemergency': avalibleforemergency,
 			'type': 'Specialist',
-			'special': special,
 			'scheduleslist': scheduletimeset,
 			'appointmentlists' : appointmentlists,
 			'nurses': nurseList,
