@@ -5,7 +5,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <a class="navbar-brand js-scroll-trigger" href="/">DASHospital</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,8 +30,7 @@
          Name: {{staff.name}}<br>
          Schedule ID: {{wid}}
         </h1>
-        
-        <p><a href = '/schedule/{{wid}}/create/'>Create</a></p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='/schedule/{{wid}}/create/'>Create</a></p>
    
       </div>
       <div class="container my-auto">
@@ -42,7 +41,8 @@
 
              <br>
           {% for i in object_list %}
-          <p><a href = '{{i.get_absolute_url}}/update/'>Change</a><a href = '{{i.get_absolute_url}}/delete/'>      &nbsp;&nbsp;Delete</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='{{i.get_absolute_url}}/update/'>Change</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='{{i.get_absolute_url}}/delete/'>Delete</a></p>
           <p> Date: {{i.date}} </p>
           <p> Start: {{i.starttime}} </p>
           <p> End: {{i.endtime}} </p>

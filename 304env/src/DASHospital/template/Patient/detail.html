@@ -6,14 +6,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <a class="navbar-brand js-scroll-trigger" href="/">DASHospital</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/DOCTOR/emergency/">Emergency information</a>
+          <a class="nav-link js-scroll-trigger" href="/Doctor/emergency/">Emergency information</a>
         </li>
       </ul>
     </div>
@@ -38,22 +38,33 @@
         <p>Phone: {{patient.phone}}</p>
        <br>
        <br>
-       <p><a href = "/Patient/{{patient.id}}/update" >Update</a></p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/Patient/{{patient.id}}/update">Update</a></p>
        <br>
         <p>Your Appointment for this week is</p>
         <hr>
       </div>
       <div class="col-lg-8 mx-auto">
         {% for i in appointments %}
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
-          <p> DOCTOR: {{i.name}} </p>
-        {% empty %}
-          <p> You don't have any Appointment Yet</p>        
-        {% endfor %}
-        <br><br>
-      </div>
 
+          <p>Date: {{i.date}} </p>
+          <p>Time: {{i.time}} </p>
+          <p>Doctor: {{i.name}} </p>
+          <p>Appointment ID: {{i.appointmentid}}</p>
+
+        {% empty %}
+          <p> You don't have any Appointment Yet</p>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <p>Prescriptions detail: </p>
+        <br>
+        {% for i in prescriptionsreceived %}
+          <p> {{i.prescriptionid.prescriptionid}} - {{i.din}} - {{i.brand}} </p>
+        {% empty %}
+          <p> You don't have any prescribed medicines</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </header>

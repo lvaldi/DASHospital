@@ -5,7 +5,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <a class="navbar-brand js-scroll-trigger" href="/">DASHospital</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,7 +30,7 @@
           <form action='.' method = 'POST'> {% csrf_token %}
               Are you sure you want to delete schedule?<br>
               you can't do undo this action
-            <p><input type ='submit' value = 'Yes' /> <a href='../'>No!</a></p>
+            <p><input class="btn btn-primary btn-sm js-scroll-trigger" type ='submit' value = 'Yes' /> <a href='../'>No!</a></p>
           </form>
         <hr>
      

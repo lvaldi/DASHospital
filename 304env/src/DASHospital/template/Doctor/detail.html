@@ -5,7 +5,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">DASHospital</a>
+    <a class="navbar-brand js-scroll-trigger" href="/">DASHospital</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,9 @@
           <p>Specialization: {{special.specialization}}</p>
 
        <br>
-       <p> Click button for viewing stat for medicine <a href = "/DOCTOR/stat/" > click </a> </p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/Doctor/stat/">Stat for Medicine</a></p>
+       <br>
+       <br>
        <br>
         <p>Your schedule for this week is</p>
         <hr>
@@ -48,10 +50,11 @@
           <p>  {{i.date}} </p>
           <p> {{i.starttime}} ~ {{i.endtime}} </p>
           <p> Notes:  {{i.notes}} </p>
+
         {% empty %}
           <p> You don't have any schedule this week! </p>
         {% endfor %}
-          <p><a href = "/schedule/{{doctor.id}}0001/list" >Manage Schedule</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/schedule/{{doctor.id}}0001/list">Manage Schedule</a></p>
         <br>
         <br>
         <br>
@@ -62,9 +65,11 @@
         <p>appointments</p>
              <br>
           {% for i in appointmentlists %}
-          <p> {{i.appointmentid}}</p>
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
+          <p>Patient Name: {{i.name}}</p>
+          <p>Appointment ID: {{i.appointmentid}}</p>
+          <p>Date: {{i.date}} </p>
+          <p>Time: {{i.time}} </p>
+          <p>Facility: {{i.type}}</p>
           <br>
         {% empty %}
           <p> No Appointments </p>
@@ -80,7 +85,8 @@
           <p> {{i.id}}</p>
           <p> {{i.name}} </p>
           <p> {{i.phone}} </p>
-           <p><a href = "/schedule/{{i.id}}0001/list" >Manage Schedule</a></p>
+           <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/schedule/{{i.id}}0001/list">Manage Schedule</a></p>
+
         {% empty %}
           <p> No Nurses </p>
         {% endfor %}
@@ -90,7 +96,7 @@
         <p>Your prescriptions are: </p>
         <br>
         {% for i in prescriptionsgiven %}
-          <p>Prescription number: {{i.prescriptionid.prescriptionid}} </p>
+          <p>{{i.prescriptionid.prescriptionid}} -  Medicine Brand: {{i.brand}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}
