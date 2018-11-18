@@ -30,8 +30,7 @@
          Name: {{staff.name}}<br>
          Schedule ID: {{wid}}
         </h1>
-        
-        <p><a href = '/schedule/{{wid}}/create/'>Create</a></p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='/schedule/{{wid}}/create/'>Create</a></p>
    
       </div>
       <div class="container my-auto">
@@ -42,7 +41,8 @@
 
              <br>
           {% for i in object_list %}
-          <p><a href = '{{i.get_absolute_url}}/update/'>Change</a><a href = '{{i.get_absolute_url}}/delete/'>      &nbsp;&nbsp;Delete</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='{{i.get_absolute_url}}/update/'>Change</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href='{{i.get_absolute_url}}/delete/'>Delete</a></p>
           <p> Date: {{i.date}} </p>
           <p> Start: {{i.starttime}} </p>
           <p> End: {{i.endtime}} </p>

@@ -25,7 +25,7 @@
         </h1>
           <form action='.' method = 'POST'> {% csrf_token %}
             {{ form.as_p }}
-            <input type ='submit' value = 'UPDATE' />
+            <input class="btn btn-primary btn-sm js-scroll-trigger" type ='submit' value = 'UPDATE' />
           </form>
           Warning! If you want to change the date, please delete schedule and create again.
         <hr>

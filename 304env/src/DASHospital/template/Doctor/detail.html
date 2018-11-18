@@ -38,7 +38,9 @@
           <p>Specialization: {{special.specialization}}</p>
 
        <br>
-       <p> Click button for viewing stat for medicine <a href = "/Doctor/stat/" > click </a> </p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/Doctor/stat/">Stat for Medicine</a></p>
+       <br>
+       <br>
        <br>
         <p>Your schedule for this week is</p>
         <hr>
@@ -52,7 +54,7 @@
         {% empty %}
           <p> You don't have any schedule this week! </p>
         {% endfor %}
-          <p><a href = "/schedule/{{doctor.id}}0001/list" >Manage Schedule</a></p>
+          <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/schedule/{{doctor.id}}0001/list">Manage Schedule</a></p>
         <br>
         <br>
         <br>
@@ -83,7 +85,8 @@
           <p> {{i.id}}</p>
           <p> {{i.name}} </p>
           <p> {{i.phone}} </p>
-           <p><a href = "/schedule/{{i.id}}0001/list" >Manage Schedule</a></p>
+           <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/schedule/{{i.id}}0001/list">Manage Schedule</a></p>
+
         {% empty %}
           <p> No Nurses </p>
         {% endfor %}

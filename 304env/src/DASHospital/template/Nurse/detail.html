@@ -41,7 +41,7 @@
         {% empty %}
           <p> You don't have any schedule this week! </p>        
         {% endfor %}
-        <p><a href = "/schedule/{{nurse.id}}0001/list" >Manage Schedule</a></p>
+        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/schedule/{{nurse.id}}0001/list">Manage Schedule</a></p>
         <br><br>
         <hr>
         <p>You are currently work with: {{doctor.name}}</p>
