@@ -58,7 +58,7 @@ class lab_technician_detail_view(View):
 class lab_technician_login_view(View):
 	template_name = "LabTechnician/login.html"
 	def get(self, request, *args, **kwargs):
-		
+
 		context = {
 			}
 		if request.GET.get('lid', ''):
@@ -68,7 +68,7 @@ class lab_technician_login_view(View):
 class doctor_login_view(View):
 	template_name = "Doctor/login.html"
 	def get(self, request, *args, **kwargs):
-		
+
 		context = {
 			}
 		print(request.GET.get('type', ''))
@@ -140,3 +140,48 @@ class stat_view(View):
 		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din')
 		context['dv'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request, self.template_name, context)
+
+class gp_account_information_view(View):
+	template_name = "Doctor/information.html"
+	def get(self, request, id, *args, **kwargs):
+		gpStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[id])[0]
+		avalibleforemergency = gpStaff.availableforemergency
+		context = {
+			'doctor': gpStaff,
+			'availableforemergency': avalibleforemergency,
+			'type': 'General Practitioner',
+		}
+		return render(request, self.template_name, context)
+
+
+class specialist_account_information_view(View):
+	template_name = "Doctor/information.html"
+	def get(self, request, id, *args, **kwargs):
+		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor", "specialist" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s AND "doctor"."id" = "specialist"."id"',[id])[0]
+		avalibleforemergency = specialistStaff.availableforemergency
+		context = {
+			'doctor': specialistStaff,
+			'availableforemergency': avalibleforemergency,
+			'type': 'Specialist',
+		}
+		return render(request, self.template_name, context)
+
+
+class nurse_account_information_view(View):
+	template_name = "Nurse/information.html"
+	def get(self, request, id, *args, **kwargs):
+		nurseStaff = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id"="nurse"."id" AND "staff"."id" = %s',[id])[0]
+		context = {
+			'nurse': nurseStaff,
+		}
+		return render(request,self.template_name, context)
+
+
+class lab_technician_account_information_view(View):
+	template_name = "LabTechnician/information.html"
+	def get(self, request, id, *args, **kwargs):
+		ltStaff = Staff.objects.raw('SELECT * FROM "staff", "lab_technician" WHERE "staff"."id"="lab_technician"."id" AND "staff"."id" = %s',[id])[0]
+		context = {
+			'lt' : ltStaff,
+		}
+		return render(request,self.template_name, context)

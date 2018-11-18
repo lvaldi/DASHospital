@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/Doctor/emergency/">Emergency information</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/Patient/{{patient.id}}/information">Account Information</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -29,13 +32,12 @@
   <div class="container my-auto">
     <div class="row">
       <div class="col-lg-10 mx-auto">
+        <br>
+        <br>
         <h1>
-         {{patient.name}}
+         Hello {{patient.name}}
         </h1>
-        <p>ID: {{patient.id}}</p>
-        <p>Email: {{patient.email}}</p>
-        <p>Healtcard: {{patient.healthcard}}</p>
-        <p>Phone: {{patient.phone}}</p>
+
        <br>
        <br>
        <p><a href = "/Patient/{{patient.id}}/update" >Update</a></p>
