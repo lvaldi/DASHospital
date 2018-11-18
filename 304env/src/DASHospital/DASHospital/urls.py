@@ -30,6 +30,7 @@ urlpatterns = [
     # path('main/', profile),
     # path('information/', account_information),
     path('Nurse/<int:id>/detail/', nurse_detail_view.as_view()),
+    path('Nurse/', nurse_login_view.as_view()),
     path('admin/', admin.site.urls),
     path('LabTechnician/<int:id>/detail/', lab_technician_detail_view.as_view()),
     path('LabTechnician/', lab_technician_login_view.as_view()),
