@@ -59,7 +59,16 @@
         {% endfor %}
         <p><a href = "/schedule/{{nurse.id}}0001/list" >Manage Schedule</a></p>
         <br><br>
+        <hr>
         <p>You are currently work with: {{doctor.name}}</p>
+        <p>Appointment List of your doctor</p>
+        <br>
+        {% for s in appointmentlists %}
+          <p> Appointment ID : {{s.appointmentid}}</p>
+          <p>  {{s.date}} - {{s.time}} </p>
+        {% empty %}
+        <p> Doctor doesn't have any appointment. Make sure that contact to your doctor. </p>        
+        {% endfor %}
       </div>
 
     </div>
