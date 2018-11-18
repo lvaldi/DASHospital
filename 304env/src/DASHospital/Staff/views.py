@@ -147,9 +147,8 @@ class Appointment_delete_view(View):
 	form_class = AppointmentTimeModelForm
 	def get_object(self):
 		date = self.kwargs.get("date")
-		# print(date)
 		date_ = datetime.strptime(date, '%Y-%m-%d').date()
-		time = self.kwargs.get("starttime")
+		time = self.kwargs.get("time")
 		t = datetime.strptime(starttime, '%X').time()
 		appointmentid = self.kwargs.get("appointmentid")
 		did = self.kwargs.get("did")
@@ -157,14 +156,14 @@ class Appointment_delete_view(View):
 		obj = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid)) 
 		return obj[0]
 
-	def get(self, request, *args, **kwargs):
+	def get(self, request, id, *args, **kwargs):
 		context = {}
 		obj = self.get_object()
 		if obj is not None:
 			context['obj']=obj
 		return render(request,self.template_name, context)
 
-	def post(self,request,*args,**kwargs):
+	def post(self,request, id, *args,**kwargs):
 		date = self.kwargs.get("date")
 		date_ = datetime.strptime(date, '%Y-%m-%d').date()
 		time = self.kwargs.get("time")
@@ -172,12 +171,11 @@ class Appointment_delete_view(View):
 		appointmentid = self.kwargs.get("appointmentid")
 		did = self.kwargs.get("did")
 		pid = self.kwargs.get("pid")
-		str =""
-		str = str + '/schedule/' + wid + '/list/'
+		str ="../../"
 		context = {}
 		obj = self.get_object()
 		if obj is not None:
 			context['obj'] = None
-			connection.cursor().execute('DELETE FROM "scheduled_time" WHERE "scheduled_time"."date" = %s AND "scheduled_time"."starttime" = %s AND "scheduled_time"."endtime" = %s AND "scheduled_time"."wid" = %s',(date,starttime,endtime,wid))
+			connection.cursor().execute('DELETE FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid))
 			return redirect(str)
 		return render(request,self.template_name,context)
