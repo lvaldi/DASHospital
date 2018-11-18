@@ -11,6 +11,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -38,7 +50,7 @@
           <p>Specialization: {{special.specialization}}</p>
 
        <br>
-       <p> Click button for viewing stat for medicine <a href = "/DOCTOR/stat/" > click </a> </p>
+       <br>
        <br>
         <p>Your schedule for this week is</p>
         <hr>
@@ -51,7 +63,6 @@
         {% empty %}
           <p> You don't have any schedule this week! </p>
         {% endfor %}
-          <p><a href = "/schedule/{{doctor.id}}0001/list" >Manage Schedule</a></p>
         <br>
         <br>
         <br>
@@ -80,7 +91,6 @@
           <p> {{i.id}}</p>
           <p> {{i.name}} </p>
           <p> {{i.phone}} </p>
-           <p><a href = "/schedule/{{i.id}}0001/list" >Manage Schedule</a></p>
         {% empty %}
           <p> No Nurses </p>
         {% endfor %}
@@ -90,7 +100,7 @@
         <p>Your prescriptions are: </p>
         <br>
         {% for i in prescriptionsgiven %}
-          <p>Prescription number: {{i.prescriptionid.prescriptionid}} </p>
+          <p>Prescription number: {{i}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}

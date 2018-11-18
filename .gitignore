@@ -112,3 +112,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+304env/src/DASHospital/template/Doctor/detail.html
