@@ -1,0 +1,22 @@
+{% extends "login.html" %}
+{% block form %}
+<form role="form">
+<fieldset>
+    <h2>Enter your ID to login</h2>
+    <hr class="colorgraph">
+    <div class="form-group">
+        <input type="text" name="did" id="did" class="form-control input-lg" placeholder="Doctor ID">
+    </div>
+    <div class="form-group">
+            <input type="radio" name="type" id="gp" class="form-control input-lg" value="GP"><p>General Physician</p><br />
+            <input type="radio" name="type" id="spec" class="form-control input-lg" value="SPEC"><p>Specialist</p><br />
+        </div>
+    <hr class="colorgraph">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
+        </div>
+    </div>
+</fieldset>
+</form>
+{% endblock form %}
