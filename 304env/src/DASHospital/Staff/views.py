@@ -54,6 +54,31 @@ class lab_technician_detail_view(View):
 			'appointmentlists': appointmentlists
 		}
 		return render(request,self.template_name,context)
+
+class lab_technician_login_view(View):
+	template_name = "LabTechnician/login.html"
+	def get(self, request, *args, **kwargs):
+		
+		context = {
+			}
+		if request.GET.get('lid', ''):
+			return HttpResponseRedirect('%s/detail/' % request.GET.get('lid', ''))
+		return render(request,self.template_name,context)
+
+class doctor_login_view(View):
+	template_name = "Doctor/login.html"
+	def get(self, request, *args, **kwargs):
+		
+		context = {
+			}
+		print(request.GET.get('type', ''))
+		if request.GET.get('did', ''):
+			if request.GET.get('type', '') == "GP":
+				return HttpResponseRedirect('/GP/%s/detail/' % request.GET.get('did', ''))
+			elif request.GET.get('type', '') == "SPEC":
+				return HttpResponseRedirect('/Specialist/%s/detail/' % request.GET.get('did', ''))
+		return render(request,self.template_name,context)
+
 class specialist_detail_view(View):
 	template_name = "Doctor/detail.html"
 	def get(self, request, id, *args, **kwargs):

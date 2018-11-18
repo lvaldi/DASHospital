@@ -20,7 +20,11 @@ from pages.views import sign_in_view
 from Staff.views import nurse_detail_view, lab_technician_detail_view
 # from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view
 from pages.views import sign_in_view, create_user_view
+<<<<<<< HEAD
 from Staff.views import nurse_detail_view, lab_technician_detail_view, specialist_detail_view, gp_detail_view, stat_view
+=======
+from Staff.views import doctor_login_view, nurse_detail_view, nurse_login_view,lab_technician_detail_view, lab_technician_login_view, specialist_detail_view, gp_detail_view, stat_view
+>>>>>>> d1066c9588981e9dccf8e7e5eca3048363b835b7
 from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view,ScheduledTime_list_view, ScheduledTime_delete_view
 from Patient.views import patient_detail_view, patient_create_view, patient_update_view, doctor_availble_for_emergency_view, doctor_availble_for_emergency_view_phone
 
@@ -33,6 +37,8 @@ urlpatterns = [
     path('Nurse/<int:id>/detail/', nurse_detail_view.as_view()),
     path('admin/', admin.site.urls),
     path('LabTechnician/<int:id>/detail/', lab_technician_detail_view.as_view()),
+    path('LabTechnician/', lab_technician_login_view.as_view()),
+    path('Doctor/', doctor_login_view.as_view()),
     path('Specialist/<int:id>/detail/', specialist_detail_view.as_view()),
     path('GP/<int:id>/detail/', gp_detail_view.as_view()),
     # path('schedule/<int:wid>/create/', ScheduledTime_create_view.as_view(), name = 'schedule-create')
@@ -45,9 +51,9 @@ urlpatterns = [
     path('Patient/create/', patient_create_view.as_view(),name = 'patient-create'),
     path('Patient/<int:id>/detail/', patient_detail_view.as_view()),
     path('Patient/<int:id>/update/', patient_update_view.as_view()),
-    path('DOCTOR/emergency/', doctor_availble_for_emergency_view.as_view()),
-    path('DOCTOR/emergency/phone/', doctor_availble_for_emergency_view_phone.as_view()),
-    path('DOCTOR/stat/', stat_view.as_view())
+    path('Doctor/emergency/', doctor_availble_for_emergency_view.as_view()),
+    path('Doctor/emergency/phone/', doctor_availble_for_emergency_view_phone.as_view()),
+    path('Doctor/stat/', stat_view.as_view())
 
 
 
