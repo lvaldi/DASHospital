@@ -45,19 +45,22 @@
       </div>
       <div class="col-lg-8 mx-auto">
         {% for i in appointments %}
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
-          <p> DOCTOR: {{i.name}} </p>
+
+          <p>Date: {{i.date}} </p>
+          <p>Time: {{i.time}} </p>
+          <p>Doctor: {{i.name}} </p>
+          <p>Appointment ID: {{i.appointmentid}}</p>
+
         {% empty %}
-          <p> You don't have any Appointment Yet</p>        
+          <p> You don't have any Appointment Yet</p>
         {% endfor %}
         <br>
         <br>
         <br>
-        <p>Medicines received Brand: </p>
+        <p>Prescriptions detail: </p>
         <br>
         {% for i in prescriptionsreceived %}
-          <p> {{i.brand}} </p>
+          <p> {{i.prescriptionid.prescriptionid}} - {{i.din}} - {{i.brand}} </p>
         {% empty %}
           <p> You don't have any prescribed medicines</p>
         {% endfor %}

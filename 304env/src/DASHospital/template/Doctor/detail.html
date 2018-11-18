@@ -93,7 +93,7 @@
         <p>Your prescriptions are: </p>
         <br>
         {% for i in prescriptionsgiven %}
-          <p>Medicine Brand: {{i.brand}} </p>
+          <p>{{i.prescriptionid.prescriptionid}} -  Medicine Brand: {{i.brand}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}
