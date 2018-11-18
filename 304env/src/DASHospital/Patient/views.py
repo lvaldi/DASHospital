@@ -1,11 +1,21 @@
 from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
 from .models import *
 from django.views import View
 from Staff.models import *
 from django.db import connection
 from .forms import *
 import collections
+
+class patient_login_view(View):
+	template_name = "Patient/login.html"
+	def get(self, request, *args, **kwargs):
+		
+		context = {
+			}
+		if request.GET.get('pid', ''):
+			return HttpResponseRedirect('%s/detail/' % request.GET.get('pid', ''))
+		return render(request,self.template_name,context)
 
 class patient_detail_view(View):
 	template_name = "Patient/detail.html"
