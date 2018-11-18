@@ -54,10 +54,10 @@
         <br>
         <br>
         <br>
-        <p>Medicines received Brand: </p>
+        <p>Prescriptions detail: </p>
         <br>
         {% for i in prescriptionsreceived %}
-          <p> {{i.brand}} </p>
+          <p> {{i.prescriptionid.prescriptionid}} - {{i.din}} - {{i.brand}} </p>
         {% empty %}
           <p> You don't have any prescribed medicines</p>
         {% endfor %}
