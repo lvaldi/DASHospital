@@ -5,6 +5,7 @@ from django.views import View
 from WeeklySchedule.models import *
 from django.db import connection
 import collections
+from .forms import AppointmentTimeForm, AppointmentTimeModelForm
 
 
 # Create your views here.
@@ -140,3 +141,43 @@ class stat_view(View):
 		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din')
 		context['dv'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request, self.template_name, context)
+
+class Appointment_delete_view(View):
+	template_name = "Appointment/delete.html"
+	form_class = AppointmentTimeModelForm
+	def get_object(self):
+		date = self.kwargs.get("date")
+		# print(date)
+		date_ = datetime.strptime(date, '%Y-%m-%d').date()
+		time = self.kwargs.get("starttime")
+		t = datetime.strptime(starttime, '%X').time()
+		appointmentid = self.kwargs.get("appointmentid")
+		did = self.kwargs.get("did")
+		pid = self.kwargs.get("pid")
+		obj = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid)) 
+		return obj[0]
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		obj = self.get_object()
+		if obj is not None:
+			context['obj']=obj
+		return render(request,self.template_name, context)
+
+	def post(self,request,*args,**kwargs):
+		date = self.kwargs.get("date")
+		date_ = datetime.strptime(date, '%Y-%m-%d').date()
+		time = self.kwargs.get("time")
+		t = datetime.strptime(time, '%X').time()
+		appointmentid = self.kwargs.get("appointmentid")
+		did = self.kwargs.get("did")
+		pid = self.kwargs.get("pid")
+		str =""
+		str = str + '/schedule/' + wid + '/list/'
+		context = {}
+		obj = self.get_object()
+		if obj is not None:
+			context['obj'] = None
+			connection.cursor().execute('DELETE FROM "scheduled_time" WHERE "scheduled_time"."date" = %s AND "scheduled_time"."starttime" = %s AND "scheduled_time"."endtime" = %s AND "scheduled_time"."wid" = %s',(date,starttime,endtime,wid))
+			return redirect(str)
+		return render(request,self.template_name,context)

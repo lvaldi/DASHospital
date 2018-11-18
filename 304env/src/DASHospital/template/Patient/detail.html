@@ -38,7 +38,7 @@
         <p>Phone: {{patient.phone}}</p>
        <br>
        <br>
-       <p><a href = "/Patient/{{patient.id}}/update" >Update</a></p>
+       <p><a href = "/Patient/{{patient.id}}/update" class="btn btn-lg btn-success">Update</a></p>
        <br>
         <p>Your Appointment for this week is</p>
         <hr>
@@ -50,12 +50,13 @@
           <p>Time: {{i.time}} </p>
           <p>Doctor: {{i.name}} </p>
           <p>Appointment ID: {{i.appointmentid}}</p>
-
+          <p><a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Delete/">Cancel appointment</a> </p>
         {% empty %}
           <p> You don't have any Appointment Yet</p>
         {% endfor %}
         <br>
         <br>
+        <a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Create/">Schedule a new appointment</a><br /><br />
         <br>
         <p>Prescriptions detail: </p>
         <br>
