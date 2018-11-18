@@ -143,9 +143,10 @@ class stat_view(View):
 class Appointment_delete_view(View):
 	template_name = "Appointment/delete.html"
 	form_class = AppointmentTimeModelForm
+	'''
 	def get_object(self):
 		date = self.kwargs.get("date")
-		date_ = datetime.strptime(date, '%Y-%m-%d').date()
+		#date_ = datetime.strptime(date, '%Y-%m-%d').date()
 		time = self.kwargs.get("time")
 		#t = datetime.strptime(starttime, '%X').time()
 		appointmentid = self.kwargs.get("appointmentid")
@@ -153,6 +154,7 @@ class Appointment_delete_view(View):
 		pid = self.kwargs.get("pid")
 		obj = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid))
 		return obj[0]
+	'''
 
 	def get(self, request, id, *args, **kwargs):
 		context = {}

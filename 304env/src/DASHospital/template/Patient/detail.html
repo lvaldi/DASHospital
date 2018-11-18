@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/Doctor/emergency/">Emergency information</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/Patient/{{patient.id}}/information">Account Information</a>
+      </li>
       </ul>
     </div>
   </div>
@@ -29,16 +32,13 @@
   <div class="container my-auto">
     <div class="row">
       <div class="col-lg-10 mx-auto">
+        <br>
+        <br>
         <h1>
-         {{patient.name}}
+         Hello {{patient.name}}
         </h1>
-        <p>ID: {{patient.id}}</p>
-        <p>Email: {{patient.email}}</p>
-        <p>Healtcard: {{patient.healthcard}}</p>
-        <p>Phone: {{patient.phone}}</p>
        <br>
        <br>
-        <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/Patient/{{patient.id}}/update">Update</a></p>
        <br>
         <p>Your Appointment for this week is</p>
         <hr>
@@ -50,13 +50,13 @@
           <p>Time: {{i.time}} </p>
           <p>Doctor: {{i.name}} </p>
           <p>Appointment ID: {{i.appointmentid}}</p>
-          <p><a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Delete/">Cancel appointment</a> </p>
+         <!-- <p><a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Delete/">Cancel appointment</a> </p> -->
         {% empty %}
           <p> You don't have any Appointment Yet</p>
         {% endfor %}
         <br>
         <br>
-        <a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Create/">Schedule a new appointment</a><br /><br />
+        <!--<a class="btn btn-primary btn-lg js-scroll-trigger" href="/Patient/{{patient.id}}/Appointment/Create/">Schedule a new appointment</a><br /><br /> -->
         <br>
         <p>Prescriptions detail: </p>
         <br>
