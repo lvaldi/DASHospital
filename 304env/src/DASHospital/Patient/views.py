@@ -21,7 +21,7 @@ class patient_detail_view(View):
 	template_name = "Patient/detail.html"
 	def get(self, request, id, *args, **kwargs):
 		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
-		appointments = Appointment.objects.raw('SELECT * FROM "doctor", "appointment", "patient", "Books", "facility" WHERE "doctor"."id" = "appointment"."did" AND "appointment"."pid" = "patient"."id" AND "doctor"."id" = %s AND "appointment"."appointmentid" = "Books"."AppointmentID" AND "Books"."FID" = "facility"."id"',[id])
+		appointments = Appointment.objects.raw('SELECT * FROM "doctor", "appointment", "staff" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = "staff"."id" AND "appointment"."pid" = %s',[id])
 		# doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
 		prescriptions = Treats.objects.raw('SELECT * FROM "prescription", "treats", "patient", "contains", "medicine" WHERE "prescription"."prescriptionid" = "treats"."prescriptionid" AND "treats"."pid" = "patient"."id" AND "patient"."id" = %s AND "prescription"."prescriptionid" = "contains"."prescriptionid" AND "contains"."din" = "medicine"."din"', [id])
 		context = {
