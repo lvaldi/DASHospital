@@ -74,9 +74,10 @@
         <p>appointments</p>
              <br>
           {% for i in appointmentlists %}
-          <p> {{i.appointmentid}}</p>
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
+          <p>Name: {{i.name}}</p>
+          <p>Appointment ID: {{i.appointmentid}}</p>
+          <p>Date: {{i.date}} </p>
+          <p>Time: {{i.time}} </p>
           <br>
         {% empty %}
           <p> No Appointments </p>

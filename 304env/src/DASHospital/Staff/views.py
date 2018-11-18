@@ -19,18 +19,18 @@ class nurse_detail_view(View):
 			'scheduleslist': scheduletimeset,
 			'doctor': doctorStaff
 			}
-	
+
 		return render(request,self.template_name,context)
 
 class lab_technician_detail_view(View):
 	template_name = "LabTechnician/detail.html"
 	def get(self, request, id, *args, **kwargs):
 		ltStaff = Staff.objects.raw('SELECT * FROM "staff", "lab_technician" WHERE "staff"."id"="lab_technician"."id" AND "staff"."id" = %s',[id])[0]
-	
+
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		facility= Facility.objects.get(id = ltStaff.fid)
 		# facility = Facility.objects.raw('SELECT * FROM "facility" WHERE "facility"."id" = %s' %ltStaff.fid)[0]
-	# I use get method since raw select query doesn't work because of migration issue.	
+	# I use get method since raw select query doesn't work because of migration issue.
 		# appointmentlists = Appointment.objects.raw('SELECT * FROM "facility", "Books", "appointment" WHERE "facility"."id" = "Books"."FID" AND "Books"."AppointmentID" = "appointment"."appointmentid" AND "facility"."id" = %s' %facility.id)
 		appointmentids = Books.objects.filter(fid=facility.id).values_list('appointmentid',flat = True)
 		appointmentlists = Appointment.objects.filter(appointmentid__in = appointmentids)
@@ -70,13 +70,13 @@ class specialist_detail_view(View):
 
 class gp_detail_view(View):
 	template_name = "Doctor/detail.html"
-	def get(self, request, id, *args, **kwargs):	
+	def get(self, request, id, *args, **kwargs):
 		gpStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[id])[0]
 		avalibleforemergency = gpStaff.availableforemergency
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
-		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s',[id])
+		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment", "patient" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s AND "appointment"."pid" = "patient"."id"',[id])
 		nurseList = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id" = "nurse"."id" AND "nurse"."did" = %s',[id])
-		prescriptions = Treats.objects.raw('SELECT * FROM "treats", "doctor" WHERE "treats"."did" = "doctor"."id" AND "doctor"."id" = %s', [id])
+		prescriptions = Treats.objects.raw('SELECT * FROM "treats", "doctor", WHERE "treats"."did" = "doctor"."id" AND "doctor"."id" = %s', [id])
 		context = {
 			'doctor': gpStaff,
 			'availableforemergency': avalibleforemergency,
@@ -103,5 +103,3 @@ class stat_view(View):
 		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din')
 		context['dv'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request, self.template_name, context)
-
-
