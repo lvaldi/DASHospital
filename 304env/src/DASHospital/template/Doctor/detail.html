@@ -48,6 +48,7 @@
           <p>  {{i.date}} </p>
           <p> {{i.starttime}} ~ {{i.endtime}} </p>
           <p> Notes:  {{i.notes}} </p>
+
         {% empty %}
           <p> You don't have any schedule this week! </p>
         {% endfor %}
@@ -62,9 +63,11 @@
         <p>appointments</p>
              <br>
           {% for i in appointmentlists %}
-          <p> {{i.appointmentid}}</p>
-          <p> {{i.date}} </p>
-          <p> {{i.time}} </p>
+          <p>Patient Name: {{i.name}}</p>
+          <p>Appointment ID: {{i.appointmentid}}</p>
+          <p>Date: {{i.date}} </p>
+          <p>Time: {{i.time}} </p>
+          <p>Facility: {{i.type}}</p>
           <br>
         {% empty %}
           <p> No Appointments </p>
@@ -90,7 +93,7 @@
         <p>Your prescriptions are: </p>
         <br>
         {% for i in prescriptionsgiven %}
-          <p>Prescription number: {{i.prescriptionid.prescriptionid}} </p>
+          <p>Medicine Brand: {{i.brand}} </p>
         {% empty %}
           <p> No Prescriptions </p>
         {% endfor %}
