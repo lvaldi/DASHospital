@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pages.views import sign_in_view 
+from pages.views import sign_in_view
 #create_patient_view
 # from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view
 from pages.views import sign_in_view, create_user_view
@@ -30,7 +30,6 @@ urlpatterns = [
     # path('main/', profile),
     # path('information/', account_information),
     path('Nurse/<int:id>/detail/', nurse_detail_view.as_view()),
-    path('Nurse/', nurse_login_view.as_view()),
     path('admin/', admin.site.urls),
     path('LabTechnician/<int:id>/detail/', lab_technician_detail_view.as_view()),
     path('LabTechnician/', lab_technician_login_view.as_view()),
@@ -50,5 +49,7 @@ urlpatterns = [
     path('Doctor/emergency/', doctor_availble_for_emergency_view.as_view()),
     path('Doctor/emergency/phone/', doctor_availble_for_emergency_view_phone.as_view()),
     path('Doctor/stat/', stat_view.as_view())
+
+
 
 ]

@@ -23,9 +23,11 @@ class patient_detail_view(View):
 		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
 		appointments = Appointment.objects.raw('SELECT * FROM "appointment", "doctor", "staff" WHERE  "appointment"."did" = "doctor"."id" AND "doctor"."id" = "staff"."id" AND "appointment"."pid" = %s ', [id])
 		# doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
+		prescriptions = Treats.objects.raw('SELECT * FROM "prescription", "treats", "patient", "contains", "medicine" WHERE "prescription"."prescriptionid" = "treats"."prescriptionid" AND "treats"."pid" = "patient"."id" AND "patient"."id" = %s AND "prescription"."prescriptionid" = "contains"."prescriptionid" AND "contains"."din" = "medicine"."din"', [id])
 		context = {
 			'patient': patient,
-			'appointments': appointments
+			'appointments': appointments,
+			'prescriptionsreceived': prescriptions
 			}
 		return render(request,self.template_name,context)
 
