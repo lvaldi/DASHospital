@@ -17,10 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from pages.views import sign_in_view 
 #create_patient_view
-from Staff.views import nurse_detail_view, lab_technician_detail_view
 # from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view
 from pages.views import sign_in_view, create_user_view
-from Staff.views import nurse_detail_view, lab_technician_detail_view, specialist_detail_view, gp_detail_view, stat_view
+from Staff.views import nurse_detail_view, nurse_login_view,lab_technician_detail_view, specialist_detail_view, gp_detail_view, stat_view
 from WeeklySchedule.views import ScheduledTime_create_view, ScheduledTime_update_view,ScheduledTime_list_view, ScheduledTime_delete_view
 from Patient.views import patient_detail_view, patient_create_view, patient_update_view, doctor_availble_for_emergency_view, doctor_availble_for_emergency_view_phone
 
@@ -31,6 +30,7 @@ urlpatterns = [
     # path('main/', profile),
     # path('information/', account_information),
     path('Nurse/<int:id>/detail/', nurse_detail_view.as_view()),
+    path('Nurse/', nurse_login_view.as_view()),
     path('admin/', admin.site.urls),
     path('LabTechnician/<int:id>/detail/', lab_technician_detail_view.as_view()),
     path('Specialist/<int:id>/detail/', specialist_detail_view.as_view()),

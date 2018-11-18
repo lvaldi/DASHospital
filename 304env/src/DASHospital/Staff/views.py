@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
 from .models import *
 from django.views import View
 from WeeklySchedule.models import *
@@ -22,6 +22,16 @@ class nurse_detail_view(View):
 			'appointmentlists' : doctorAppointmentList
 			}
 	
+		return render(request,self.template_name,context)
+
+class nurse_login_view(View):
+	template_name = "Nurse/login.html"
+	def get(self, request, *args, **kwargs):
+		
+		context = {
+			}
+		if request.GET.get('nid', ''):
+			return HttpResponseRedirect('%s/detail/' % request.GET.get('nid', ''))
 		return render(request,self.template_name,context)
 
 class lab_technician_detail_view(View):

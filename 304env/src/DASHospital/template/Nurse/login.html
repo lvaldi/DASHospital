@@ -1,0 +1,18 @@
+{% extends "login.html" %}
+{% block form %}
+<form role="form">
+<fieldset>
+    <h2>Enter your ID to login</h2>
+    <hr class="colorgraph">
+    <div class="form-group">
+        <input type="text" name="nid" id="nid" class="form-control input-lg" placeholder="Nurse ID">
+    </div>
+    <hr class="colorgraph">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
+        </div>
+    </div>
+</fieldset>
+</form>
+{% endblock form %}
