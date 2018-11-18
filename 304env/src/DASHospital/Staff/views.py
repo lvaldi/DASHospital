@@ -59,7 +59,7 @@ class lab_technician_detail_view(View):
 class lab_technician_login_view(View):
 	template_name = "LabTechnician/login.html"
 	def get(self, request, *args, **kwargs):
-		
+
 		context = {
 			}
 		if request.GET.get('lid', ''):
@@ -69,7 +69,7 @@ class lab_technician_login_view(View):
 class doctor_login_view(View):
 	template_name = "Doctor/login.html"
 	def get(self, request, *args, **kwargs):
-		
+
 		context = {
 			}
 		print(request.GET.get('type', ''))
@@ -83,8 +83,7 @@ class doctor_login_view(View):
 class specialist_detail_view(View):
 	template_name = "Doctor/detail.html"
 	def get(self, request, id, *args, **kwargs):
-		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[id])[0]
-		special = Specialist.objects.raw('SELECT * FROM "specialist" WHERE "specialist"."id" = %s', [specialistStaff.id])
+		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor", "specialist" WHERE "staff"."id"="doctor"."id" AND "doctor"."id" = "specialist"."id" AND "staff"."id" = %s',[id])[0]
 		avalibleforemergency = specialistStaff.availableforemergency
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s',[id])
@@ -98,7 +97,6 @@ class specialist_detail_view(View):
 			'doctor': specialistStaff,
 			'availableforemergency': avalibleforemergency,
 			'type': 'Specialist',
-			'special': special,
 			'scheduleslist': scheduletimeset,
 			'appointmentlists' : appointmentlists,
 			'nurses': nurseList,
@@ -179,3 +177,47 @@ class Appointment_delete_view(View):
 			connection.cursor().execute('DELETE FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid))
 			return redirect(str)
 		return render(request,self.template_name,context)
+class gp_account_information_view(View):
+	template_name = "Doctor/information.html"
+	def get(self, request, id, *args, **kwargs):
+		gpStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[id])[0]
+		avalibleforemergency = gpStaff.availableforemergency
+		context = {
+			'doctor': gpStaff,
+			'availableforemergency': avalibleforemergency,
+			'type': 'General Practitioner',
+		}
+		return render(request, self.template_name, context)
+
+
+class specialist_account_information_view(View):
+	template_name = "Doctor/information.html"
+	def get(self, request, id, *args, **kwargs):
+		specialistStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor", "specialist" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s AND "doctor"."id" = "specialist"."id"',[id])[0]
+		avalibleforemergency = specialistStaff.availableforemergency
+		context = {
+			'doctor': specialistStaff,
+			'availableforemergency': avalibleforemergency,
+			'type': 'Specialist',
+		}
+		return render(request, self.template_name, context)
+
+
+class nurse_account_information_view(View):
+	template_name = "Nurse/information.html"
+	def get(self, request, id, *args, **kwargs):
+		nurseStaff = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id"="nurse"."id" AND "staff"."id" = %s',[id])[0]
+		context = {
+			'nurse': nurseStaff,
+		}
+		return render(request,self.template_name, context)
+
+
+class lab_technician_account_information_view(View):
+	template_name = "LabTechnician/information.html"
+	def get(self, request, id, *args, **kwargs):
+		ltStaff = Staff.objects.raw('SELECT * FROM "staff", "lab_technician" WHERE "staff"."id"="lab_technician"."id" AND "staff"."id" = %s',[id])[0]
+		context = {
+			'lt' : ltStaff,
+		}
+		return render(request,self.template_name, context)

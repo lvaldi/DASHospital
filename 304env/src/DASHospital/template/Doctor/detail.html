@@ -11,6 +11,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="../information">Account Information</a>
+          </li>
       </ul>
     </div>
   </div>
@@ -25,18 +28,11 @@
   <div class="container my-auto">
     <div class="row">
       <div class="col-lg-10 mx-auto">
+          <br>
+          <br>
         <h1 class="text-uppercase">
-         {{doctor.name}}
+        Hello {{doctor.name}}
         </h1>
-        <p>ID: {{doctor.id}}</p>
-        <p>Email: {{doctor.email}}</p>
-        <p>License: {{doctor.license}}</p>
-        <p>Phone: {{doctor.phone}}</p>
-        <p>Available For Emergency: {{availableforemergency}}</p>
-        <p>Type: {{type}} </p>
-
-          <p>Specialization: {{special.specialization}}</p>
-
        <br>
         <p><a class="btn btn-primary btn-sm js-scroll-trigger" href="/Doctor/stat/">Stat for Medicine</a></p>
        <br>

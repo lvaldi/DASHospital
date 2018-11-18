@@ -10,7 +10,7 @@ import collections
 class patient_login_view(View):
 	template_name = "Patient/login.html"
 	def get(self, request, *args, **kwargs):
-		
+
 		context = {
 			}
 		if request.GET.get('pid', ''):
@@ -21,7 +21,7 @@ class patient_detail_view(View):
 	template_name = "Patient/detail.html"
 	def get(self, request, id, *args, **kwargs):
 		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
-		appointments = Appointment.objects.raw('SELECT * FROM "appointment", "doctor", "staff" WHERE  "appointment"."did" = "doctor"."id" AND "doctor"."id" = "staff"."id" AND "appointment"."pid" = %s ', [id])
+		appointments = Appointment.objects.raw('SELECT * FROM "doctor", "appointment", "patient", "Books", "facility" WHERE "doctor"."id" = "appointment"."did" AND "appointment"."pid" = "patient"."id" AND "doctor"."id" = %s AND "appointment"."appointmentid" = "Books"."AppointmentID" AND "Books"."FID" = "facility"."id"',[id])
 		# doctorStaff = Staff.objects.raw('SELECT * FROM "staff", "doctor" WHERE "staff"."id"="doctor"."id" AND "staff"."id" = %s',[appointment.did])[0]
 		prescriptions = Treats.objects.raw('SELECT * FROM "prescription", "treats", "patient", "contains", "medicine" WHERE "prescription"."prescriptionid" = "treats"."prescriptionid" AND "treats"."pid" = "patient"."id" AND "patient"."id" = %s AND "prescription"."prescriptionid" = "contains"."prescriptionid" AND "contains"."din" = "medicine"."din"', [id])
 		context = {
@@ -102,3 +102,13 @@ class doctor_availble_for_emergency_view_phone(View):
 		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'id, name, phone')
 		context['list'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request,self.template_name,context)
+
+
+class patient_account_information_view(View):
+	template_name = "Patient/information.html"
+	def get(self, request, id, *args, **kwargs):
+		patient = Patient.objects.raw('SELECT * FROM "patient" WHERE "patient"."id" = %s',[id])[0]
+		context = {
+			'patient': patient,
+		}
+		return render(request, self.template_name, context)

@@ -11,10 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/Doctor/emergency/">Emergency information</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/Patient/{{patient.id}}/information">Account Information</a>
+            <a class="nav-link js-scroll-trigger" href="../information">Account Information</a>
         </li>
       </ul>
     </div>
@@ -29,11 +26,14 @@
     <div class="container my-auto">
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <p>Name: {{patient.name}}</p>
-                <p>ID: {{patient.id}}</p>
-                <p>Email: {{patient.email}}</p>
-                <p>Health Card: {{patient.healthcard}}</p>
-                <p>Phone: {{patient.phone}}</p>
+                <p>Name: {{doctor.name}}</p>
+                <p>ID: {{doctor.id}}</p>
+                <p>Email: {{doctor.email}}</p>
+                <p>License: {{doctor.license}}</p>
+                <p>Phone: {{doctor.phone}}</p>
+                <p>Available For Emergency: {{availableforemergency}}</p>
+                <p>Type: {{type}} </p>
+                <p>Specialization: {{doctor.specialization}}</p>
             </div>
 
         </div>
