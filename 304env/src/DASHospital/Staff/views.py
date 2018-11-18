@@ -147,7 +147,7 @@ class Appointment_delete_view(View):
 		date = self.kwargs.get("date")
 		date_ = datetime.strptime(date, '%Y-%m-%d').date()
 		time = self.kwargs.get("time")
-		t = datetime.strptime(starttime, '%X').time()
+		#t = datetime.strptime(starttime, '%X').time()
 		appointmentid = self.kwargs.get("appointmentid")
 		did = self.kwargs.get("did")
 		pid = self.kwargs.get("pid")
