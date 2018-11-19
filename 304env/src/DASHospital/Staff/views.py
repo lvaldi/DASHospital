@@ -5,7 +5,6 @@ from django.views import View
 from WeeklySchedule.models import *
 from django.db import connection
 import collections
-from .forms import AppointmentTimeForm, AppointmentTimeModelForm
 
 
 # Create your views here.
