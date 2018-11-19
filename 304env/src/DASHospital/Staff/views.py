@@ -131,8 +131,8 @@ class stat_view(View):
 		c.execute('SELECT ingredients, count(*) as count from contains, medicine where contains.din = medicine.din group by ingredients order by count desc')
 		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'ingredients, count')
 		context['iv'] = map(ComplaintRecord._make, c.fetchall())
-		c.execute('SELECT DISTINCT din FROM "contains" as sx WHERE NOT EXISTS ((SELECT p."prescriptionid" FROM "prescription" as p )EXCEPT(SELECT sp."prescriptionid" FROM contains as sp WHERE sp.din = sx.din ) )')
-		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din')
+		c.execute('SELECT DISTINCT c1.din, brand, ingredients FROM "contains" as c1, "medicine" WHERE "c1"."din" = "medicine"."din" AND NOT EXISTS ((SELECT p."prescriptionid" FROM "prescription" as p) EXCEPT (SELECT c2."prescriptionid" FROM contains as c2 WHERE c1.din = c2.din ))')
+		ComplaintRecord = collections.namedtuple('ComplaintRecord', 'din, brand, ingredients')
 		context['dv'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request, self.template_name, context)
 
