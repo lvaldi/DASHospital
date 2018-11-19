@@ -87,11 +87,8 @@ class specialist_detail_view(View):
 		avalibleforemergency = specialistStaff.availableforemergency
 		scheduletimeset = Weeklyschedule.objects.raw('SELECT * FROM "staff", "weeklyschedule", "scheduled_time" WHERE "staff"."id" = "weeklyschedule"."sid" AND "scheduled_time"."wid" = "weeklyschedule"."id" AND "staff"."id" = %s', [id])
 		appointmentlists = Appointment.objects.raw('SELECT * FROM "doctor", "appointment" WHERE "doctor"."id" = "appointment"."did" AND "doctor"."id" = %s',[id])
-		# appointmentlists= Appointment.objects.filter(did = specialistStaff.id)
 		nurseList = Staff.objects.raw('SELECT * FROM "staff", "nurse" WHERE "staff"."id" = "nurse"."id" AND "nurse"."did" = %s',[id])
 		prescriptions = Treats.objects.raw('SELECT * FROM "treats", "doctor" WHERE "treats"."did" = "doctor"."id" AND "doctor"."id" = %s', [id])
-		# prescriptions = Treats.objects.filter(did = specialistStaff.id).values_list('prescriptionid',flat=True)
-
 
 		context = {
 			'doctor': specialistStaff,
@@ -140,45 +137,7 @@ class stat_view(View):
 		context['dv'] = map(ComplaintRecord._make, c.fetchall())
 		return render(request, self.template_name, context)
 
-class Appointment_delete_view(View):
-	template_name = "Appointment/delete.html"
-	form_class = AppointmentTimeModelForm
-	'''
-	def get_object(self):
-		date = self.kwargs.get("date")
-		#date_ = datetime.strptime(date, '%Y-%m-%d').date()
-		time = self.kwargs.get("time")
-		#t = datetime.strptime(starttime, '%X').time()
-		appointmentid = self.kwargs.get("appointmentid")
-		did = self.kwargs.get("did")
-		pid = self.kwargs.get("pid")
-		obj = Appointment.objects.raw('SELECT * FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid))
-		return obj[0]
-	'''
 
-	def get(self, request, id, *args, **kwargs):
-		context = {}
-		obj = self.get_object()
-		if obj is not None:
-			context['obj']=obj
-		return render(request,self.template_name, context)
-
-	def post(self,request, id, *args,**kwargs):
-		date = self.kwargs.get("date")
-		date_ = datetime.strptime(date, '%Y-%m-%d').date()
-		time = self.kwargs.get("time")
-		t = datetime.strptime(time, '%X').time()
-		appointmentid = self.kwargs.get("appointmentid")
-		did = self.kwargs.get("did")
-		pid = self.kwargs.get("pid")
-		str ="../../"
-		context = {}
-		obj = self.get_object()
-		if obj is not None:
-			context['obj'] = None
-			connection.cursor().execute('DELETE FROM "appointment" WHERE "appointment"."appointmentid" = %s',(appointmentid))
-			return redirect(str)
-		return render(request,self.template_name,context)
 class gp_account_information_view(View):
 	template_name = "Doctor/information.html"
 	def get(self, request, id, *args, **kwargs):
